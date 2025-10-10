@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>謎解きページ</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      width: 200px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>謎解きに挑戦！</h1>
+  <input id="answer" placeholder="答えを入力">
+  <button onclick="saveAnswer()">送信</button>
+
+  <script>
+    function saveAnswer() {
+      const input = document.getElementById('answer').value.trim();
+      if (input) {
+        localStorage.setItem('userAnswer', input);
+        alert('答えを保存しました！メインページへ戻って確認してみましょう。');
+      } else {
+        alert('答えを入力してください');
+      }
+    }
+  </script>
+</body>
+</html>
