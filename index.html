@@ -1,1 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>localStorageテスト</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    #count {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>localStorage カウントテスト</h1>
+  <button onclick="increment()">カウント +1</button>
+  <button onclick="reset()">リセット</button>
+  <div id="count">現在のカウント: 0</div>
 
+  <script>
+    const countEl = document.getElementById('count');
+
+    // 初期表示
+    let count = parseInt(localStorage.getItem('count')) || 0;
+    countEl.textContent = `現在のカウント: ${count}`;
+
+    // カウント増加
+    function increment() {
+      count++;
+      localStorage.setItem('count', count);
+      countEl.textContent = `現在のカウント: ${count}`;
+    }
+
+    // リセット
+    function reset() {
+      localStorage.removeItem('count');
+      count = 0;
+      countEl.textContent = `現在のカウント: ${count}`;
+    }
+  </script>
+</body>
+</html>
