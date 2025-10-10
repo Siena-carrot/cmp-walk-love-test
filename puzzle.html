@@ -19,23 +19,30 @@
       font-size: 16px;
       margin: 10px;
     }
+    #nextButton {
+      display: none;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
   <h1>謎解きに挑戦！</h1>
   <input id="answer" placeholder="答えを入力">
-  <button onclick="saveAnswer()">送信</button>
+  <button onclick="checkAnswer()">送信</button>
   <br>
   <button onclick="location.href='index.html'">メインページへ戻る</button>
+  <br>
+  <button id="nextButton" onclick="location.href='next.html'">次のページへ進む</button>
 
   <script>
-    function saveAnswer() {
+    function checkAnswer() {
       const input = document.getElementById('answer').value.trim();
-      if (input) {
+      if (input === 'answer') {
         localStorage.setItem('userAnswer', input);
-        alert('答えを保存しました！メインページへ戻って確認してみましょう。');
+        alert('正解です！次のページへ進めます。');
+        document.getElementById('nextButton').style.display = 'inline-block';
       } else {
-        alert('答えを入力してください');
+        alert('違います。もう一度挑戦してください。');
       }
     }
   </script>
