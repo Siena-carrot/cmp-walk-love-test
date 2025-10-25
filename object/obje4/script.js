@@ -14,7 +14,7 @@ function showMap(button) {
 			const mapImg = section.querySelector('#mapImage img');
 			if (mapImg) filename = mapImg.getAttribute('data-filename') || mapImg.getAttribute('src').split('/').pop();
 		}
-		if (!filename) filename = 'obje6-map.jpg';
+		if (!filename) filename = 'obje4-map.jpg';
 		const path = location.pathname.replace(/\\/g, '/');
 		const parts = path.split('/');
 		const baseParts = parts.slice(0, Math.max(0, parts.length - 3));

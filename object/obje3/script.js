@@ -1,7 +1,7 @@
 const correctChoice = "c4";
-const userAnswer = localStorage.getItem("obje2Answer");
+const userAnswer = localStorage.getItem("obje3Answer");
 const loggedIn = localStorage.getItem("adminLoggedIn");
-const lockUntil = parseInt(localStorage.getItem("obje2LockUntil"), 10);
+const lockUntil = parseInt(localStorage.getItem("obje3LockUntil"), 10);
 const now = Date.now();
 
 const errorInfo = document.getElementById("errorInfo");
@@ -11,7 +11,7 @@ const normalView = document.getElementById("normalView");
 const puzzleBox = document.getElementById("puzzleBox");
 const lockMessage = document.getElementById("lockMessage");
 
-// obje2は「正解済み」なら正常表示、それ以外は異常表示
+// obje3は「正解済み」なら正常表示、それ以外は異常表示
 if (userAnswer === correctChoice || userAnswer === 'restored') {
   normalInfo.style.display = "block";
   normalView.style.display = "block";
@@ -27,7 +27,7 @@ if (userAnswer === correctChoice || userAnswer === 'restored') {
 }
 
 function confirmChoice(choice) {
-  const lockUntil = parseInt(localStorage.getItem("obje2LockUntil"), 10);
+  const lockUntil = parseInt(localStorage.getItem("obje3LockUntil"), 10);
   if (!isNaN(lockUntil) && Date.now() < lockUntil) {
     alert("現在ロック中です。時間が経過してから再挑戦してください。");
     return;
@@ -41,13 +41,13 @@ function confirmChoice(choice) {
 
 function checkAnswer(choice) {
   if (choice === correctChoice) {
-    // store a canonical restored marker instead of the raw choice
-    localStorage.setItem("obje2Answer", "restored");
+  // store a canonical restored marker instead of the raw choice
+  localStorage.setItem("obje3Answer", "restored");
     alert("正解です！ページが復旧しました。");
     location.reload();
   } else {
     const lockTime = Date.now() + 15 * 60 * 1000;
-    localStorage.setItem("obje2LockUntil", lockTime);
+  localStorage.setItem("obje3LockUntil", lockTime);
     alert("誤答がありました。15分後に再挑戦できます。");
     puzzleBox.style.display = "none";
     lockMessage.style.display = "block";
@@ -96,7 +96,7 @@ function showMap(button) {
       const mapImg = section.querySelector('#mapImage img');
       if (mapImg) filename = mapImg.getAttribute('data-filename') || mapImg.getAttribute('src').split('/').pop();
     }
-    if (!filename) filename = 'obje2-map.jpg';
+  if (!filename) filename = 'obje3-map.jpg';
     const path = location.pathname.replace(/\\/g, '/');
     const parts = path.split('/');
     const baseParts = parts.slice(0, Math.max(0, parts.length - 3));
