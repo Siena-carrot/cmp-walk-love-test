@@ -76,6 +76,21 @@ h1 {
   transition: box-shadow 200ms ease, border-color 200ms ease;
 }
 
+/* Master auth prompt styling (appears in top-right loginStatus) */
+.master-auth-prompt {
+  display: inline-block;
+  padding: 6px 10px;
+  border: 2px solid #E8465D; /* red border */
+  background: rgba(232,70,93,0.08); /* light red fill */
+  color: #E8465D;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.master-auth-prompt:hover {
+  background: rgba(232,70,93,0.14);
+}
+
 .object-card:hover {
   transform: scale(1.03);
 }
@@ -204,7 +219,7 @@ input[readonly] {
   }
 
   .card-image {
-    height: 160px;
+    height: 190px;
   }
 
   .card-title {

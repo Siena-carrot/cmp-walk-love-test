@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const loginStatusEl = document.getElementById('loginStatus');
       if (loginStatusEl) {
-        loginStatusEl.innerHTML = '<span style="color:#E8465D; font-weight:700; cursor:pointer">マスターパスワード認証する</span>';
+        loginStatusEl.innerHTML = '<span class="master-auth-prompt">マスターパスワード認証する</span>';
         // make it clickable to re-open the master login popup
         loginStatusEl.style.cursor = 'pointer';
         loginStatusEl.onclick = openMasterPopup;
