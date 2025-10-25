@@ -34,6 +34,16 @@ document.addEventListener("DOMContentLoaded", () => {
   if (allRestored && masterLogged !== 'true') {
     // show master login popup and prevent browsing until master login
     openMasterPopup();
+    // Highlight master auth needed in the top-right login status area
+    try {
+      const loginStatusEl = document.getElementById('loginStatus');
+      if (loginStatusEl) {
+        loginStatusEl.innerHTML = '<span style="color:#E8465D; font-weight:700; cursor:pointer">マスターパスワード認証する</span>';
+        // make it clickable to re-open the master login popup
+        loginStatusEl.style.cursor = 'pointer';
+        loginStatusEl.onclick = openMasterPopup;
+      }
+    } catch (e) { console.warn('could not update loginStatus to show master auth needed', e); }
   }
 
   // If a previous master login set a flag to show new mail popup after reload, show it now
@@ -74,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // set thumbnails for certain objects (normal / error) based on localStorage state
   // initial pass for configured objects
-  const thumbTargets = [2,3,5,7,11,13];
+  const thumbTargets = [2,3,5,7,8,9,11,13];
   thumbTargets.forEach(n => setThumbnailState(n));
 
   // badge/checkmark feature removed; we only set thumbnails

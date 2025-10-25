@@ -10,15 +10,18 @@ const repairDept = document.getElementById("repairDept");
 const repairMessage = document.getElementById("repairMessage");
 
 const fixed = localStorage.getItem("obje9Fixed") === "restored";
+const container = document.querySelector('.object-container');
 if (userAnswer || fixed) {
   normalInfo.style.display = "block";
   errorInfo.style.display = "none";
   if (normalPhotos) normalPhotos.style.display = "flex";
   if (errorPhotos) errorPhotos.style.display = "none";
+  if (container) container.classList.remove('error');
 } else {
   errorInfo.style.display = "block";
   if (normalPhotos) normalPhotos.style.display = "none";
   if (errorPhotos) errorPhotos.style.display = "flex";
+  if (container) container.classList.add('error');
 }
 
 function showMap(){const map=document.getElementById('mapImage');if(map)map.style.display='block';}
@@ -61,4 +64,17 @@ function attemptRepair(){
   year=year.replace(/[０-９]/g,function(s){return String.fromCharCode(s.charCodeAt(0)-0xFEE0)});
   dept=dept.replace(/\s+/g,'');
   const okYears=["60"];const okDepts=["原子核"];
-  if(okYears.includes(year)&&okDepts.includes(dept)){localStorage.setItem("obje9Fixed","restored");const correctText="説明文をここに入れてください。";if(errorDescription)errorDescription.textContent=correctText;alert("正解です！ページが復旧しました。");location.reload();}else{repairMessage.style.display='block';repairMessage.style.color='red';repairMessage.textContent='修復キーが違います。もう一度確認してください。'}}
+  if(okYears.includes(year)&&okDepts.includes(dept)){
+    localStorage.setItem("obje9Fixed","restored");
+    const correctText = "説明文をここに入れてください。";
+    if (errorDescription) errorDescription.textContent = correctText;
+    // follow the same success wording as obje8
+    alert("ページの復旧が確認できました");
+    location.reload();
+  } else {
+    repairMessage.style.display = 'block';
+    repairMessage.style.color = 'red';
+    repairMessage.textContent = 'エラー発生。もう一度確認してください。';
+  }
+
+}

@@ -9,6 +9,7 @@ const errorDescription = document.getElementById("errorDescription");
 const repairYear = document.getElementById("repairYear");
 const repairDept = document.getElementById("repairDept");
 const repairMessage = document.getElementById("repairMessage");
+const container = document.querySelector('.object-container');
 
 // 表示ロジック: 回答済み or 修復済みなら正常表示、そうでなければ問題表示
 const fixed = localStorage.getItem("obje8Fixed") === "restored";
@@ -19,11 +20,13 @@ if (userAnswer || fixed) {
   errorInfo.style.display = "none";
   if (normalPhotos) normalPhotos.style.display = "flex";
   if (errorPhotos) errorPhotos.style.display = "none";
+  if (container) container.classList.remove('error');
 } else {
   // 問題発生時は errorInfo を表示。画像は常時表示なので何も隠さない
   errorInfo.style.display = "block";
   if (normalPhotos) normalPhotos.style.display = "none";
   if (errorPhotos) errorPhotos.style.display = "flex";
+  if (container) container.classList.add('error');
 }
 
 // 誤答時のロックは不要なため、関連ロジックは含めていません
@@ -93,11 +96,11 @@ function attemptRepair() {
     const correctText = "なんとなく素通りしてしまいがちだが、この碑はまさにマチカネワニが発掘された場所にある。発掘されたのは1964年、理学部の校舎建設現場。";
     if (errorDescription) errorDescription.textContent = correctText;
     // obje2 と同様の挙動: 成功メッセージを出してページをリロード
-    alert("正解です！ページが復旧しました。");
+    alert("ページの復旧が確認できました");
     location.reload();
   } else {
     repairMessage.style.display = "block";
     repairMessage.style.color = "red";
-    repairMessage.textContent = "修復キーが違います。もう一度確認してください。";
+    repairMessage.textContent = "エラー発生。もう一度確認してください。";
   }
 }

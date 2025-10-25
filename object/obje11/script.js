@@ -61,4 +61,16 @@ function attemptRepair(){
   year=year.replace(/[０-９]/g,function(s){return String.fromCharCode(s.charCodeAt(0)-0xFEE0)});
   dept=dept.replace(/\s+/g,'');
   const okYears=["1986"];const okDepts=["ばら","バラ","薔薇","薔"];
-  if(okYears.includes(year)&&okDepts.includes(dept)){localStorage.setItem("obje11Fixed","restored");const correctText="説明文をここに入れてください。";if(errorDescription)errorDescription.textContent=correctText;alert("正解です！ページが復旧しました。");location.reload();}else{repairMessage.style.display='block';repairMessage.style.color='red';repairMessage.textContent='修復キーが違います。もう一度確認してください。'}}
+  if(okYears.includes(year)&&okDepts.includes(dept)){
+    localStorage.setItem("obje11Fixed","restored");
+    const correctText = "説明文をここに入れてください。";
+    if (errorDescription) errorDescription.textContent = correctText;
+    // follow same success wording as obje8
+    alert("ページの復旧が確認できました");
+    location.reload();
+  } else {
+    repairMessage.style.display = 'block';
+    repairMessage.style.color = 'red';
+    repairMessage.textContent = 'エラー発生。もう一度確認してください。';
+  }
+}
