@@ -54,14 +54,14 @@ html.splash-active body > *:not(#splashOverlay){
 /* Page basic styles */
 body {
   font-family: sans-serif;
-  text-align: center;
+  text-align: center; /* overall layout center-aligned */
   margin-top: 50px;
   /* Page background color requested */
   background-color: #eadfca;
 }
 
 .description-box {
-  /* Remove visible box so text sits directly on the page background */
+  /* Center the box as an element, but left-align its text content */
   background-color: transparent;
   padding: 8px 0;
   margin: 30px auto;
@@ -70,8 +70,9 @@ body {
   font-size: 16px;
   border: none;
   color: #222; /* ensure good contrast against the page background */
-  /* Preserve newlines and wrap long lines so manual line breaks in HTML source appear */
-  white-space: pre-wrap;
+  text-align: left; /* only the description text is left-aligned */
+  /* Use explicit <br> for line breaks; allow normal wrapping otherwise */
+  white-space: normal;
   word-break: break-word;
 }
 
@@ -87,4 +88,31 @@ body {
   /* Fill: slightly translucent version of the page background */
   background: #f0ebe2;
   color: inherit;
+}
+
+/* Mobile-specific adjustments for index.html
+   - left-align the page content on small screens
+   - change description wrapping so mobile reflows content (different line-break positions)
+*/
+@media (max-width: 768px) {
+  body {
+    text-align: left;
+    margin-top: 20px; /* reduce top margin for small screens */
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  /* On mobile, let the description reflow naturally so line breaks can change
+     (desktop keeps white-space: pre-wrap to preserve author line breaks). */
+  .description-box {
+    width: 100%;
+    max-width: none;
+    margin: 18px 0;
+    font-size: 16px;
+    white-space: normal; /* allow reflow/wrapping at different positions */
+    hyphens: auto;
+    word-break: break-word;
+  }
+
+  .splash-inner img{ width: 90vw; max-width: 540px }
 }
