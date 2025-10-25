@@ -4,36 +4,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>メインページ</title>
+  <script>
+    // Early check to avoid flicker: mark document if splash should be active this session
+    (function(){
+      try{
+        var shown = sessionStorage.getItem('indexSplashShown');
+        var ref = document.referrer || '';
+        var shouldShow = false;
+        if (shown !== 'true'){
+          if (!ref) {
+            shouldShow = true;
+          } else {
+            try{ var r = new URL(ref); if (r.origin !== location.origin) shouldShow = true; }catch(e){ shouldShow = true; }
+          }
+        }
+        if (shouldShow) document.documentElement.classList.add('splash-active');
+      }catch(e){}
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="index.css">
-  <script src="index.js"></script>
 </head>
 <body>
   <h1 class="site-header">
-    <img src="assets/images/header.png" alt="大阪大学CMP-walk愛好会" style="max-width:540px;width:100%;height:auto;display:inline-block">
+    <img src="assets/images/header.png" alt="大阪大学CMP-walk愛好会" style="max-width:810px;width:100%;height:auto;display:inline-block">
   </h1>
 
   <!-- Splash overlay: shown only when arriving from outside the site -->
   <div id="splashOverlay" class="splash-overlay" role="dialog" aria-hidden="true">
     <div class="splash-inner" aria-hidden="true">
       <img src="assets/images/header.png" alt="大阪大学CMP-walk愛好会">
-    <!-- External script handles splash behavior -->
-                  try{ document.documentElement.classList.remove('splash-active'); }catch(e){}
-                  try{ overlay.style.display='none'; }catch(e){}
-                }, 650);
-              };
-            overlay.addEventListener('click', hide);
-            // auto-hide after 2.0s
-            setTimeout(hide, 2000);
-          }
+    </div>
+  </div>
 
-          if (document.readyState === 'loading'){
-            document.addEventListener('DOMContentLoaded', showSplash);
-          } else {
-            // DOMContentLoaded already fired — run immediately
-            showSplash();
-          }
-        }catch(e){}
-      })();
-    </script>
+  <div class="description-box">
+  こんにちは！
+  わたしたちは、大阪大学豊中キャンパスにある
+  「Campus Museum Project 散策コース」
+  の愛好会です！
+  このサイトは最初の活動として制作した会員おすすめのオブジェ紹介サイトです！
+  気になるオブジェがあったらぜひ足を運んでみてくださいね。
+  </div>
+  
+  <button class="nav-button" onclick="location.href='object/index.html'">会員おすすめのオブジェクトを見る</button>
+    <script src="index.js"></script>
 </body>
 </html>

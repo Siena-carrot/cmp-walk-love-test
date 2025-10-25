@@ -1,24 +1,5 @@
-/* index.js - extracted from index.html
-   Contains early splash decision script and splash display logic.
-*/
-
+/* index.js — splash control extracted from index.html */
 (function(){
-  // Early decision logic moved here. This file is intended to be included in <head>
-  try{
-    var shown = sessionStorage.getItem('indexSplashShown');
-    var ref = document.referrer || '';
-    var shouldShow = false;
-    if (shown !== 'true'){
-      if (!ref) {
-        shouldShow = true;
-      } else {
-        try{ var r = new URL(ref); if (r.origin !== location.origin) shouldShow = true; }catch(e){ shouldShow = true; }
-      }
-    }
-    if (shouldShow) document.documentElement.classList.add('splash-active');
-  }catch(e){}
-
-  // Show/hide logic for the overlay. Runs after DOM is ready (or immediately if already ready).
   try{
     var shown = sessionStorage.getItem('indexSplashShown');
     var ref = document.referrer || '';
@@ -56,8 +37,8 @@
         }, 650);
       };
       overlay.addEventListener('click', hide);
-      // auto-hide after 2.5s
-      setTimeout(hide, 2500);
+  // auto-hide after 1.4s (shorter display per user request)
+  setTimeout(hide, 1400);
     }
 
     if (document.readyState === 'loading'){
@@ -67,5 +48,4 @@
       showSplash();
     }
   }catch(e){}
-
 })();
