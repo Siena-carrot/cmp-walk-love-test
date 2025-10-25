@@ -142,16 +142,15 @@
   <!-- ログインポップ -->
   <div id="loginPopup" class="popup" style="display: none;">
     <div class="popup-content">
-      <p class="warning">サイトに重大な問題が発生しています。<br>管理者としてログインし、復旧作業を行ってください</p>
-      <label for="adminId">ID:</label>
+      <p class="warning">サイトに重大な問題が発生しています。<br>管理者としてログインし、<br>復旧作業を実施してください！</p>
       <input type="text" id="adminId" value="CMP_adminuser" readonly>
       <input type="text" id="adminPassword" placeholder="パスワードを入力">
       <p class="note">※パスワードは漢字とひらがなで入力してください</p>
-      <button onclick="openHintPopup()">パスワードを忘れた場合はこちら</button>
       <div style="margin-top: 10px;">
-        <button onclick="submitLogin()">ログインする</button>
-        <button onclick="closeLoginPopup()">ログインせずに閲覧する</button>
+        <button onclick="submitLogin()">ログイン</button>
+        <button onclick="closeLoginPopup()">キャンセル</button>
       </div>
+      <span class="forgot-link" role="button" tabindex="0" onclick="openHintPopup()" onkeydown="if(event.key==='Enter'||event.key===' ') { openHintPopup(); event.preventDefault(); }">パスワードを忘れた場合はこちら</span>
     </div>
   </div>
 
@@ -172,15 +171,19 @@
   <!-- ヒントポップ -->
   <div id="hintPopup" class="popup" style="display: none;">
     <div class="popup-content">
+      <button type="button" class="hint-popup-close" onclick="closeHintPopup()" aria-label="閉じる">
+        <span class="square_btn" aria-hidden="true"></span>
+      </button>
+      <p class="hint-title">パスワードのヒント</p>
       <p>「旧制浪速高等学校学生像」の名称</p>
       <img src="../assets/maps/obje1-map.jpg" alt="ヒント地図" style="width: 100%; border-radius: 6px; margin-top: 10px;">
-      <button onclick="closeHintPopup()" style="margin-top: 10px;">閉じる</button>
     </div>
   </div>
 
   <!-- マスターヒントポップ -->
   <div id="masterHintPopup" class="popup" style="display: none;">
     <div class="popup-content">
+      <p class="hint-title">パスワードのヒント</p>
       <p>Uの色から始まる６文字のフレーズ</p>
       <img src="../assets/images/loginmap.jpg" alt="マスターヒント地図" style="width: 100%; border-radius: 6px; margin-top: 10px;">
       <button onclick="closeMasterHintPopup()" style="margin-top: 10px;">閉じる</button>

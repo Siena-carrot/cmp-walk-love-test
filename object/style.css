@@ -5,13 +5,12 @@ body {
   padding: 20px;
   text-align: center;
 }
-
 /* site logo placed at top-left, slightly outside the main card area */
 .site-logo{
   position: absolute;
   top: 12px;
   left: 20px;
-  width: 120px; /* doubled per request (was 80px) */
+  width: 180px; /* increased to 1.5x (was 120px) */
   z-index: 1200;
   display: block;
 }
@@ -91,6 +90,21 @@ h1 {
   background: rgba(232,70,93,0.14);
 }
 
+/* Style the top-right login button to match master-auth-prompt visuals */
+#loginButton {
+  display: inline-block; /* may be overridden by inline styles, but ensure styling applies */
+  padding: 6px 10px;
+  border: 2px solid #E8465D;
+  background: rgba(232,70,93,0.08);
+  color: #E8465D;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+}
+#loginButton:hover {
+  background: rgba(232,70,93,0.14);
+}
+
 .object-card:hover {
   transform: scale(1.03);
 }
@@ -143,13 +157,24 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+@font-face {
+  font-family: 'LogoTypeGothicCondense';
+  src: url('../assets/fonts/ロゴたいぷゴシックCondense.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+.object-list-container > h1 {
+  font-family: 'LogoTypeGothicCondense', system-ui, -apple-system, 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
   z-index: 1000;
 }
 
 .popup-content {
   background: white;
   position: relative;
-  padding: 20px;
+  /* add extra bottom padding so the bottom-centered close button doesn't overlap the content (map) */
+  padding: 20px 20px 64px;
   border-radius: 8px;
   width: 300px;
   text-align: center;
@@ -170,7 +195,7 @@ h1 {
 }
 
 .warning {
-  color: red;
+  color: #f3314e;
   font-weight: bold;
   margin-bottom: 15px;
 }
@@ -179,6 +204,91 @@ h1 {
   font-size: 13px;
   color: #555;
   margin-top: 5px;
+}
+
+/* Clickable inline 'forgot password' link style (blue, bold text) */
+.forgot-link{
+  color: #0366d6; /* blue */
+  font-weight: 700; /* bold */
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 8px;
+}
+.forgot-link:focus{
+  outline: 2px solid rgba(3,102,214,0.2);
+  outline-offset: 2px;
+}
+
+/* Hint popup title */
+.hint-title{
+  font-weight: 700;
+  font-size: 18px;
+  margin: 0 0 8px 0;
+}
+
+/* Close button for hint popup: slightly large, circular */
+.popup-content .hint-popup-close{
+  position: absolute;
+  /* place at the center-bottom inside the popup with extra margin from content */
+  top: auto;
+  bottom: 22px; /* increased so it doesn't overlap the map */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.14);
+  z-index: 20;
+  padding: 0;
+  overflow: visible;
+}
+.popup-content .hint-popup-close:hover{
+  background: rgba(0,0,0,0.06);
+}
+.popup-content .hint-popup-close img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+/* CSS-drawn close icon (cross) */
+.square_btn {
+  display: block;
+  position: relative;
+  /* scale inner square to ~70% (30px -> 21px) to match overall reduction */
+  width: 21px;
+  height: 21px;
+  border: none; /* remove square border */
+  background: transparent; /* keep transparent so outer circular button shows */
+}
+
+.square_btn::before, .square_btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px; /* 棒の幅（太さ） reduced to ~70% */
+  height: 19px; /* 棒の高さ reduced to ~70% */
+  background: #333; /* バツ印の色 */
+}
+
+.square_btn::before {
+  transform: translate(-50%,-50%) rotate(45deg);
+}
+
+.square_btn::after {
+  transform: translate(-50%,-50%) rotate(-45deg);
 }
 
 .popup-content button {
@@ -228,7 +338,7 @@ input[readonly] {
   }
 
   .site-logo {
-    width: 90px;
+    width: 135px;
     left: 12px;
     top: 8px;
   }
@@ -258,7 +368,7 @@ input[readonly] {
   }
 
   .site-logo {
-    width: 72px;
+    width: 108px;
     left: 8px;
     top: 6px;
   }

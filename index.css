@@ -85,6 +85,6 @@ body {
   /* ② 粗めの点線、③ 枠線を太く */
   border: 3px dotted #333;
   /* Fill: slightly translucent version of the page background */
-  background: rgba(234,223,202,0.5);
+  background: #f0ebe2;
   color: inherit;
 }
