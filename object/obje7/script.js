@@ -29,7 +29,7 @@ if (userAnswer === correctChoice || userAnswer === 'restored') {
 function confirmChoice(choice) {
   const lockUntil = parseInt(localStorage.getItem("obje7LockUntil"), 10);
   if (!isNaN(lockUntil) && Date.now() < lockUntil) {
-    alert("現在ロック中です。時間が経過してから再挑戦してください。");
+    alert("現在ロック中です。時間が経過してから再度検証してください。");
     return;
   }
 
@@ -42,12 +42,12 @@ function confirmChoice(choice) {
 function checkAnswer(choice) {
   if (choice === correctChoice) {
     localStorage.setItem("obje7Answer", "restored");
-    alert("正解です！ページが復旧しました。");
+    alert("ページの復旧が確認できました");
     location.reload();
   } else {
     const lockTime = Date.now() + 15 * 60 * 1000;
     localStorage.setItem("obje7LockUntil", lockTime);
-    alert("誤答がありました。15分後に再挑戦できます。");
+    alert("エラー発生。15分後に再度検証してください");
     puzzleBox.style.display = "none";
     lockMessage.style.display = "block";
     startLockCountdown(lockTime);
@@ -61,14 +61,14 @@ function startLockCountdown(until) {
 
     if (remainingMs <= 0) {
       clearInterval(timer);
-      lockMessage.textContent = "ロックが解除されました。再挑戦できます。";
+      lockMessage.textContent = "ロックが解除されました。再度検証してください。";
       puzzleBox.style.display = "block";
       return;
     }
 
     const minutes = Math.floor(remainingMs / 60000);
     const seconds = Math.floor((remainingMs % 60000) / 1000);
-    lockMessage.textContent = `誤答のためロック中です。あと ${minutes}分 ${seconds}秒 後に再挑戦できます。`;
+    lockMessage.textContent = `ロック中。あと ${minutes}分 ${seconds}秒 お待ちください。`;
   }
 
   updateCountdown();
