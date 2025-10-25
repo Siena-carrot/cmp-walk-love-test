@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>風の塔｜大阪大学CMP-walk愛好会</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="object-container">
+    <!-- 異常時の情報 -->
+    <div id="errorInfo" style="display: none;">
+      <p class="status error">このページには問題があります</p>
+      <h1>旧制浪速高等学校学生像「？？？？？？？？」</h1>
+      <p class="description">阪大坂側から豊中キャンパスに来たときに最初に目に入るオブジェ。同じポーズで並んで写真を撮りたいが、立ち入っていいかわからない。</p>
+      <div class="map-section">
+        <button onclick="showMap(this)">設置場所はこちら</button>
+        <div id="mapImage" style="display: none;">
+          <img src="../../assets/maps/obje1-map.jpg" alt="obje1-map" data-filename="obje1-map.jpg">
+        </div>
+        <p class="map-description" style="display:none">阪大坂を登ったところ</p>
+      </div>
+      <div id="lockMessage" style="display: none;"></div>
+    </div>
+
+    <!-- 正常時の情報 -->
+    <div id="normalInfo" style="display: none;">
+      <h1>旧制浪速高等学校学生像「友よ我らぞ光よと」</h1>
+      <p class="description">阪大坂側から豊中キャンパスに来たときに最初に目に入るオブジェ。同じポーズで並んで写真を撮りたいが、立ち入っていいかわからない。</p>
+      <div class="map-section">
+  <button onclick="showMap(this)">設置場所はこちら</button>
+        <div id="mapImage" style="display: none;">
+          <img src="../../assets/maps/obje1-map.jpg" alt="obje1-map" data-filename="obje1-map.jpg">
+        </div>
+        <p class="map-description" style="display:none">阪大坂を登ったところ</p>
+      </div>
+    </div>
+
+    <!-- 異常時の表示 -->
+    <div id="errorView" style="display: none;">
+      <div class="photos">
+  <img src="../../assets/images/obje1-3.jpg" alt="obje1-3">
+  <img src="../../assets/images/404-9.jpg" alt="404-9">
+      </div>
+    </div>
+
+    <!-- 正常時の表示 -->
+    <div id="normalView" style="display: none;">
+      <div class="photos">
+  <img src="../../assets/images/obje1-1.jpg" alt="obje1-1">
+  <img src="../../assets/images/obje1-2.jpg" alt="obje1-2">
+      </div>
+    </div>
+
+    <div class="back-button">
+      <button onclick="location.href='../index.html'">オブジェ一覧に戻る</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+  <!-- Map modal for showing placement description, image and close button -->
+  <style>
+    .map-modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 20px;
+    }
+    .map-modal-inner {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px; /* match .popup .popup-content width */
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      max-height: 80vh;
+      overflow: auto;
+    }
+    .map-modal-inner img { width: 100%; height: auto; display: block; margin-top: 10px; border-radius: 6px; }
+    .map-modal-close { display: inline-block; margin-left: auto; background: #ccc; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; }
+    .map-modal-header { display:flex; align-items:center; gap:12px; }
+  </style>
+
+  <div id="mapModal" class="map-modal" aria-hidden="true">
+    <div class="map-modal-inner" role="dialog" aria-modal="true">
+      <div class="map-modal-header">
+        <strong>設置場所</strong>
+        <button class="map-modal-close" onclick="closeMap()">閉じる</button>
+      </div>
+      <p id="mapModalDescription">(説明)</p>
+      <img id="mapModalImg" src="" alt="設置場所の地図">
+    </div>
+  </div>
+</body>
+</html>

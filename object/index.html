@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>オブジェ一覧｜大阪大学CMP-walk愛好会</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- site logo (click -> /index.html) placed top-left outside the main card area -->
+  <a class="site-logo" href="../index.html" aria-label="サイトトップへ">
+    <img src="../assets/images/logo.png" alt="CMP-walk 愛好会 ロゴ">
+  </a>
+  <div class="top-bar">
+    <span id="loginStatus"></span>
+    <div id="mailButtonArea" style="display: none; margin-top: 8px; position:relative;">
+      <!-- Mail icon button with unread badge -->
+      <button id="mailButton" aria-label="メールボックスへ" onclick="location.href='../mail/index.html'" style="background:none;border:none;cursor:pointer;padding:6px;">
+        <!-- simple envelope SVG (size doubled) -->
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M2 6.5A2.5 2.5 0 0 1 4.5 4h15A2.5 2.5 0 0 1 22 6.5v11A2.5 2.5 0 0 1 19.5 20h-15A2.5 2.5 0 0 1 2 17.5v-11z" stroke="#333" stroke-width="1" fill="#fff"/>
+          <path d="M3 6.5l8.5 6L20 6.5" stroke="#333" stroke-width="1.8" fill="none"/>
+        </svg>
+        <span id="mailUnreadBadge" style="display:none;position:absolute;top:0;right:0;width:12px;height:12px;border-radius:50%;background:#d00;border:2px solid white;box-sizing:content-box"></span>
+      </button>
+    </div>
+    <button id="loginButton" onclick="openLoginPopup()" style="display: none;">ログインする</button>
+  </div>
+
+  <div class="object-list-container">
+    <h1>オブジェ一覧</h1>
+    <div class="card-grid">
+      <div class="object-card" id="card-obje1">
+        <a href="obje1/index.html">
+          <img src="../assets/images/obje1-1.jpg" alt="obje1-1" class="card-image">
+          <div class="card-title">旧制浪速高等学校学生像「友よ我らぞ光よと」</div>
+        </a>
+      </div>
+
+      <div class="object-card" id="card-obje2">
+        <a href="obje2/index.html">
+          <img src="../assets/images/obje2-1.jpg" alt="obje2-1" class="card-image" data-normal="../assets/images/obje2-1.jpg" data-error="../assets/images/404-1.jpg">
+          <div class="card-title">翔</div>
+        </a>
+      </div>
+
+      <div class="object-card" id="card-obje3">
+        <a href="obje3/index.html">
+          <img src="../assets/images/obje3-1.jpg" alt="obje3-1" class="card-image" data-normal="../assets/images/obje3-1.jpg" data-error="../assets/images/404-2.jpg">
+          <div class="card-title">浸食（EROSION4）</div>
+        </a>
+      </div>
+
+      <div class="object-card" id="card-obje4">
+        <a href="obje4/index.html">
+          <img src="../assets/images/obje4-1.jpg" alt="obje4-1" class="card-image">
+          <div class="card-title">飛翔</div>
+        </a>
+      </div>
+
+      <div class="object-card" id="card-obje5">
+        <a href="obje5/index.html">
+          <img src="../assets/images/obje5-1.jpg" alt="obje5-1" class="card-image" data-normal="../assets/images/obje5-1.jpg" data-error="../assets/images/404-3.jpg">
+          <div class="card-title">200H-24</div>
+        </a>
+      </div>
+
+      <div class="object-card" id="card-obje6">
+        <a href="obje6/index.html">
+          <img src="../assets/images/obje6-1.jpg" alt="obje6-1" class="card-image">
+          <div class="card-title">浪高創立五十周年記念碑</div>
+        </a>
+      </div>
+
+      <div class="object-card" id="card-obje7">
+        <a href="obje7/index.html">
+          <img src="../assets/images/obje7-1.jpg" alt="obje7-1" class="card-image" data-normal="../assets/images/obje7-1.jpg" data-error="../assets/images/404-4.jpg">
+          <div class="card-title">15°</div>
+        </a>
+      </div>
+
+      <div class="object-card" id="card-obje8">
+        <a href="obje8/index.html">
+          <img src="../assets/images/obje8-1.jpg" alt="obje8-1" class="card-image">
+          <div class="card-title">マチカネワニ発掘の碑</div>
+        </a>
+      </div>
+
+      <div class="object-card" id="card-obje9">
+        <a href="obje9/index.html">
+          <img src="../assets/images/obje9-1.jpg" alt="obje9-1" class="card-image">
+          <div class="card-title">コックロフト・ウォールトン型高電圧発生装置</div>
+        </a>
+      </div>
+
+      <div class="object-card" id="card-obje10">
+        <a href="obje10/index.html">
+          <img src="../assets/images/obje10-1.jpg" alt="obje10-1" class="card-image">
+          <div class="card-title">サイクロトロン</div>
+        </a>
+      </div>
+
+      <div class="object-card" id="card-obje11">
+        <a href="obje11/index.html">
+          <img src="../assets/images/obje11-1.jpg" alt="obje11-1" class="card-image" data-normal="../assets/images/obje11-1.jpg" data-error="../assets/images/404-7.jpg">
+          <div class="card-title">「マチカネくん」マンホール蓋</div>
+        </a>
+      </div>
+
+      <div class="object-card" id="card-obje12">
+        <a href="obje12/index.html">
+          <img src="../assets/images/obje12-1.jpg" alt="obje12-1" class="card-image">
+          <div class="card-title">青春の像</div>
+        </a>
+      </div>
+
+      <div class="object-card" id="card-obje13">
+        <a href="obje13/index.html">
+          <img src="../assets/images/obje13-1.jpg" alt="obje13-1" class="card-image" data-normal="../assets/images/obje13-1.jpg" data-error="../assets/images/obje13-3.jpg">
+          <div class="card-title">大阪高等学校寮歌歌碑</div>
+        </a>
+      </div>
+
+      <div class="object-card" id="card-obje14">
+        <a href="obje14/index.html">
+          <img src="../assets/images/obje14-1.jpg" alt="obje14-1" class="card-image">
+          <div class="card-title">宮前山古墳石棺</div>
+        </a>
+      </div>
+
+      <div class="object-card" id="card-obje15">
+        <a href="obje15/index.html">
+          <img src="../assets/images/obje15-1.jpg" alt="obje15-1" class="card-image">
+          <div class="card-title">フーコーの振り子</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- トップページに戻るボタンは削除されました -->
+  </div>
+
+  <!-- ログインポップ -->
+  <div id="loginPopup" class="popup" style="display: none;">
+    <div class="popup-content">
+      <p class="warning">サイトに重大な問題が発生しています。<br>管理者としてログインし、復旧作業を行ってください</p>
+      <label for="adminId">ID:</label>
+      <input type="text" id="adminId" value="CMP_adminuser" readonly>
+      <input type="text" id="adminPassword" placeholder="パスワードを入力">
+      <p class="note">※パスワードは漢字とひらがなで入力してください</p>
+      <button onclick="openHintPopup()">パスワードを忘れた場合はこちら</button>
+      <div style="margin-top: 10px;">
+        <button onclick="submitLogin()">ログインする</button>
+        <button onclick="closeLoginPopup()">ログインせずに閲覧する</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- マスターログインポップ（指定オブジェがすべて復旧している場合に表示） -->
+  <div id="masterLoginPopup" class="popup" style="display: none;">
+    <div class="popup-content">
+      <p class="warning">複数の端末にて同時にWebページの編集が行われたため、一時的に編集をロックしました。ロックを解除するにはマスターパスワードの入力をしてください。</p>
+      <input type="text" id="masterPassword" placeholder="マスターパスワードを入力">
+      <p class="note">※パスワードは漢字とひらがなで入力してください</p>
+      <button onclick="openMasterHintPopup()">マスターパスワードを忘れた場合はこちら</button>
+      <div style="margin-top: 10px;">
+        <button onclick="submitMasterLogin()">認証</button>
+        <button onclick="closeMasterPopup()">キャンセル</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ヒントポップ -->
+  <div id="hintPopup" class="popup" style="display: none;">
+    <div class="popup-content">
+      <p>「旧制浪速高等学校学生像」の名称</p>
+      <img src="../assets/maps/obje1-map.jpg" alt="ヒント地図" style="width: 100%; border-radius: 6px; margin-top: 10px;">
+      <button onclick="closeHintPopup()" style="margin-top: 10px;">閉じる</button>
+    </div>
+  </div>
+
+  <!-- マスターヒントポップ -->
+  <div id="masterHintPopup" class="popup" style="display: none;">
+    <div class="popup-content">
+      <p>Uの色から始まる６文字のフレーズ</p>
+      <img src="../assets/images/loginmap.jpg" alt="マスターヒント地図" style="width: 100%; border-radius: 6px; margin-top: 10px;">
+      <button onclick="closeMasterHintPopup()" style="margin-top: 10px;">閉じる</button>
+    </div>
+  </div>
+
+  <!-- 新着メール通知ポップ（マスター認証時に表示） -->
+  <div id="newMailPopup" class="popup" style="display: none;">
+    <div class="popup-content">
+      <button class="popup-close" onclick="closeNewMailPopup(true)" aria-label="閉じる" style="position:absolute;top:8px;right:10px;background:none;border:none;font-size:18px;cursor:pointer">×</button>
+      <p class="warning">新しいメールが届きました</p>
+      <div style="text-align:center; margin-top: 8px;">
+        <button id="confirmNewMailBtn" onclick="confirmNewMail()">確認する</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

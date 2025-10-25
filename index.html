@@ -9,10 +9,17 @@
       text-align: center;
       margin-top: 50px;
     }
-    #result {
-      font-size: 20px;
-      margin-top: 30px;
+
+    .description-box {
+      background-color: #f0f8ff; /* 適当な背景色（後で調整可） */
+      padding: 20px;
+      margin: 30px auto;
+      width: 80%;
+      max-width: 600px;
+      font-size: 16px;
+      border: none;
     }
+
     .nav-button {
       margin-top: 40px;
       padding: 10px 20px;
@@ -21,17 +28,12 @@
   </style>
 </head>
 <body>
-  <h1>ようこそ！</h1>
-  <div id="result">まだ答えが入力されていません。</div>
-  <button class="nav-button" onclick="location.href='puzzle.html'">謎解きページへ</button>
+  <h1>大阪大学CMP-walk愛好会</h1>
 
-  <script>
-    const resultEl = document.getElementById('result');
-    const answer = localStorage.getItem('userAnswer');
+  <div class="description-box">
+    ここに入力
+  </div>
 
-    if (answer) {
-      resultEl.textContent = `あなたが入力した文字は「${answer}」です。`;
-    }
-  </script>
+  <button class="nav-button" onclick="location.href='object/index.html'">会員おすすめのオブジェクトを見る</button>
 </body>
 </html>

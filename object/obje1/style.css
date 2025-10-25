@@ -1,0 +1,98 @@
+body {
+  font-family: sans-serif;
+  background-color: #fdfdfd;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+}
+
+.object-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.status {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.status.error {
+  color: #c00;
+}
+
+.status.normal {
+  color: #080;
+}
+
+.photos {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.photos img {
+  width: 45%;
+  border-radius: 4px;
+}
+
+.map-section {
+  margin-top: 20px;
+}
+
+.map-section img {
+  width: 100%;
+  border-radius: 6px;
+  margin-top: 15px;
+}
+
+.puzzle-box {
+  background-color: #fff8e1;
+  padding: 15px;
+  border-radius: 6px;
+  margin-top: 20px;
+  font-size: 15px;
+}
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.choices img {
+  width: 45%;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.choices img:hover {
+  transform: scale(1.05);
+}
+
+.back-button {
+  margin-top: 30px;
+}
+
+#lockMessage {
+  color: red;
+  margin-bottom: 10px;
+  font-weight: bold;
+}

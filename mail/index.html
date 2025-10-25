@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>メールボックス｜CMP-walk復旧システム</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>メールボックス</h1>
+
+  <div class="mail-list" id="mailList">
+    <!-- メール一覧はJSで生成 -->
+  </div>
+
+  <div id="mailPopup">
+    <button class="mail-popup-close" onclick="closePopup()" aria-label="閉じる">×</button>
+    <h3 id="popupSubject"></h3>
+    <p><strong>差出人:</strong> <span id="popupSender"></span></p>
+    <p><span id="popupDate"></span></p>
+    <p id="popupBody"></p>
+    <button onclick="closePopup()">閉じる</button>
+  </div>
+
+  <div style="text-align: center; margin-top: 40px;">
+  <a href="../object/index.html" style="display: inline-block; padding: 10px 20px; background: #4477cc; color: white; text-decoration: none; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.2);">
+    メールボックスを閉じる
+  </a>
+</div>
+
+  <script src="script.js"></script>
+</body>
+</html>

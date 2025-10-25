@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>フーコーの振り子｜大阪大学CMP-walk愛好会</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="object-container">
+    <div id="normalInfo">
+      <h1>フーコーの振り子</h1>
+      <p class="description">2004年に制作されたフーコーの振り子。7mというかなりの高さから吊りされている様がやや滑稽で魅力的。</p>
+      <div class="map-section">
+  <button onclick="showMap(this)">設置場所はこちら</button>
+        <div id="mapImage" style="display:none;">
+          <img src="../../assets/maps/obje15-map.jpg" alt="obje15-map" data-filename="obje15-map.jpg">
+        </div>
+        <p class="map-description" style="display:none">理学H棟</p>
+      </div>
+    </div>
+
+    <div class="photos">
+  <img src="../../assets/images/obje15-1.jpg" alt="obje15-1">
+  <img src="../../assets/images/obje15-2.jpg" alt="obje15-2">
+    </div>
+
+    <div class="back-button">
+      <button onclick="location.href='../index.html'">オブジェ一覧に戻る</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+  <style>
+    .map-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:2000;padding:20px}
+    .map-modal-inner{background:white;padding:20px;border-radius:8px;width:300px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.3);max-height:80vh;overflow:auto}
+    .map-modal-inner img{width:100%;height:auto;display:block;margin-top:10px;border-radius:6px}
+    .map-modal-close{display:inline-block;margin-left:auto;background:#ccc;border:none;padding:6px 10px;border-radius:4px;cursor:pointer}
+    .map-modal-header{display:flex;align-items:center;gap:12px}
+  </style>
+
+  <div id="mapModal" class="map-modal" aria-hidden="true">
+    <div class="map-modal-inner" role="dialog" aria-modal="true">
+      <div class="map-modal-header">
+        <strong>設置場所</strong>
+        <button class="map-modal-close" onclick="closeMap()">閉じる</button>
+      </div>
+      <p id="mapModalDescription">(説明)</p>
+      <img id="mapModalImg" src="" alt="設置場所の地図">
+    </div>
+  </div>
+</body>
+</html>

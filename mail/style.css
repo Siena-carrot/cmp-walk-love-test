@@ -1,0 +1,109 @@
+body {
+  font-family: sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.mail-list {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+}
+
+.mail-item {
+  border-bottom: 1px solid #ddd;
+  padding: 12px 0;
+  cursor: pointer;
+}
+
+.mail-item:last-child {
+  border-bottom: none;
+}
+
+.mail-item.unread {
+  font-weight: bold;
+  background-color: #f0f0f0; /* unread = grey background */
+  color: #000;
+}
+
+.mail-item.read {
+  color: #000; /* read = normal text color */
+  background-color: #fff; /* read = white background */
+  font-weight: normal;
+}
+
+.mail-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.mail-subject {
+  flex: 1 1 auto;
+}
+
+.mail-sender {
+  color: #888;
+  white-space: nowrap;
+}
+
+.mail-date {
+  color: #666;
+  white-space: nowrap;
+}
+
+.mail-preview {
+  font-size: 13px;
+  color: #444;
+}
+
+#mailPopup {
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border: 2px solid #333;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  z-index: 1000;
+  width: 400px;
+  display: none;
+}
+
+#mailPopup h3 {
+  margin-top: 0;
+}
+
+#mailPopup p {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+#mailPopup button {
+  margin-top: 15px;
+  padding: 6px 12px;
+}
+
+/* Close button in the top-right corner of the mail popup */
+.mail-popup-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
