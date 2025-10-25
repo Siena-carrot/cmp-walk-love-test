@@ -101,6 +101,20 @@ h1 {
 	font-weight: bold;
 }
 
+/* Responsive tweaks for small screens */
+@media (max-width: 768px) {
+	body { padding: 12px; }
+	.object-container { max-width: 100%; margin: 0 8px; padding: 14px; }
+	.photos { flex-direction: column; }
+	.photos img { width: 100%; }
+	.map-section img { max-height: 240px; object-fit: cover; }
+}
+
+@media (max-width: 420px) {
+	h1 { font-size: 20px; }
+	.description { font-size: 15px; }
+}
+
 .repair-section { margin-top: 12px; }
 .repair-section input { padding:8px; margin:6px 6px 6px 0; border-radius:4px; border:1px solid #ccc }
 .repair-section button { padding:8px 12px; background:#2b7cff; color:#fff; border:none; border-radius:6px; cursor:pointer }

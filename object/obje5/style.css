@@ -15,3 +15,17 @@ h1{font-size:24px;margin-bottom:10px}
 .choices img:hover{transform:scale(1.05)}
 .back-button{margin-top:30px}
 #lockMessage{color:red;margin-bottom:10px;font-weight:bold}
+
+/* Responsive tweaks for small screens */
+@media (max-width: 768px) {
+	body { padding: 12px; }
+	.object-container { max-width: 100%; margin: 0 8px; padding: 14px; }
+	.photos { flex-direction: column; }
+	.photos img { width: 100%; }
+	.map-section img { max-height: 240px; object-fit: cover; }
+}
+
+@media (max-width: 420px) {
+	h1 { font-size: 20px; }
+	.description { font-size: 15px; }
+}

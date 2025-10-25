@@ -29,7 +29,7 @@ if (userAnswer === correctChoice || userAnswer === 'restored') {
 function confirmChoice(choice) {
   const lockUntil = parseInt(localStorage.getItem("obje2LockUntil"), 10);
   if (!isNaN(lockUntil) && Date.now() < lockUntil) {
-    alert("現在ロック中です。時間が経過してから再挑戦してください。");
+    alert("現在ロック中です。時間が経過してから再度検証してください。");
     return;
   }
 
@@ -43,12 +43,12 @@ function checkAnswer(choice) {
   if (choice === correctChoice) {
     // store a canonical restored marker instead of the raw choice
     localStorage.setItem("obje2Answer", "restored");
-    alert("正解です！ページが復旧しました。");
+    alert("ページの復旧が確認できました");
     location.reload();
   } else {
     const lockTime = Date.now() + 15 * 60 * 1000;
     localStorage.setItem("obje2LockUntil", lockTime);
-    alert("誤答がありました。15分後に再挑戦できます。");
+    alert("エラー発生。15分後に再度検証してください");
     puzzleBox.style.display = "none";
     lockMessage.style.display = "block";
     startLockCountdown(lockTime);

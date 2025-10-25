@@ -31,7 +31,7 @@ h1 {
 }
 
 .status.error {
-  color: #222;
+  color: #c00;
 }
 
 .status.normal {
@@ -95,4 +95,18 @@ h1 {
   color: red;
   margin-bottom: 10px;
   font-weight: bold;
+}
+
+/* Responsive tweaks for small screens */
+@media (max-width: 768px) {
+  body { padding: 12px; }
+  .object-container { max-width: 100%; margin: 0 8px; padding: 14px; }
+  .photos { flex-direction: column; }
+  .photos img { width: 100%; }
+  .map-section img { max-height: 240px; object-fit: cover; }
+}
+
+@media (max-width: 420px) {
+  h1 { font-size: 20px; }
+  .description { font-size: 15px; }
 }

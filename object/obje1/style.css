@@ -96,3 +96,20 @@ h1 {
   margin-bottom: 10px;
   font-weight: bold;
 }
+
+/* Responsive tweaks for small screens */
+@media (max-width: 768px) {
+  body { padding: 12px; }
+  .object-container { max-width: 100%; margin: 0 8px; padding: 14px; }
+  .photos { flex-direction: column; align-items: center; }
+  .photos img { width: 100%; }
+  .choices { gap: 8px; }
+  .choices img { width: 100%; }
+  .map-section img { max-height: 240px; object-fit: cover; }
+}
+
+@media (max-width: 420px) {
+  .object-container { padding: 12px; }
+  h1 { font-size: 20px; }
+  .description { font-size: 15px; }
+}
