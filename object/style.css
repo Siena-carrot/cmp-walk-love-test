@@ -8,10 +8,12 @@
 
 body {
   font-family: 'SmartFontUI', system-ui, -apple-system, 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
-  background-color: #fdfdfd;
+  background-color: #eadfca;
   margin: 0;
   padding: 20px;
   text-align: center;
+  /* default text color for the objects index page */
+  color: #494949;
 }
 /* site logo placed at top-left, slightly outside the main card area */
 .site-logo{
@@ -29,6 +31,8 @@ body {
   padding: 10px 20px;
   /* make everything in the top-right slightly larger (1.2x of previous 14px) */
   font-size: 16.8px; /* 14px * 1.2 */
+  position: relative;
+  z-index: 1300; /* ensure controls sit above page tint/background */
 }
 
 /* scale mail icon and unread badge to match 1.2x size */
@@ -37,12 +41,23 @@ body {
   height: 48px;
 }
 
-/* unread badge slightly larger to match scaled icon */
+/* Make the mail/envelope button visually independent from page background */
+#mailButton {
+  /* keep the mail icon's native transparent background; do not force a white background */
+  background: transparent !important;
+  border-radius: 6px !important;
+  padding: 6px !important;
+  box-shadow: none !important;
+}
+
+/* unread badge sizing and positioning tuned for the larger mail icon */
 #mailUnreadBadge {
-  width: 15px !important;
-  height: 15px !important;
-  top: -2px !important;
-  right: -2px !important;
+  /* small badge positioned at the top-right of the mail icon (tuned for 58px icon) */
+  width: 12px !important;
+  height: 12px !important;
+  top: 7px !important;
+  right: 4px !important;
+  box-sizing: content-box !important;
 }
 
 /* style for logout button (match login button styling but set to grey) */
@@ -50,7 +65,9 @@ body {
   display: inline-block;
   padding: 6px 10px;
   border: 2px solid #9a9a9a; /* grey border */
-  background: rgba(0,0,0,0.04); /* subtle grey background */
+  /* ensure button background is independent from page background */
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
   color: #555; /* grey text */
   font-weight: 700;
   border-radius: 6px;
@@ -97,7 +114,7 @@ h1 {
 .intro {
   font-size: 16px;
   margin-bottom: 20px;
-  color: #555;
+  color: #494949;
 }
 
 .card-grid {
@@ -140,14 +157,15 @@ h1 {
   display: inline-block;
   padding: 6px 10px;
   border: 2px solid #E8465D; /* red border */
-  background: rgba(232,70,93,0.08); /* light red fill */
+  /* use solid white background so page tint doesn't bleed into the control */
+  background: #fff;
   color: #E8465D;
   font-weight: 700;
   border-radius: 6px;
   cursor: pointer;
 }
 .master-auth-prompt:hover {
-  background: rgba(232,70,93,0.14);
+  background: rgba(232,70,93,0.04);
 }
 
 /* Style the top-right login button (grey) */
@@ -155,14 +173,15 @@ h1 {
   display: inline-block; /* may be overridden by inline styles, but ensure styling applies */
   padding: 6px 10px;
   border: 2px solid #9a9a9a; /* grey border */
-  background: rgba(0,0,0,0.04);
+  background: #fff; /* solid white so page background/tint doesn't affect it */
   color: #555;
   font-weight: 700;
   border-radius: 6px;
   cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
 #loginButton:hover {
-  background: rgba(0,0,0,0.06);
+  background: rgba(0,0,0,0.04);
 }
 
 .object-card:hover {
@@ -492,3 +511,31 @@ body.awaiting-master-auth {
   background-color: #f3314e;
   transition: background-color 220ms ease;
 }
+
+/* Shared obje page tweaks: button styles and spacing (from obje1) */
+.btn-back, .btn-map {
+  font-family: 'SmartFontUI', system-ui, -apple-system, 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
+  font-size: 14px;
+  padding: 8px 14px;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  transition: background 160ms ease, transform 120ms ease;
+  transform: scale(1.2);
+  transform-origin: center;
+}
+.btn-back {
+  border-radius: 9999px;
+  border: 2px dotted #333;
+  background: transparent;
+  color: inherit;
+}
+.btn-map {
+  border: none;
+  background: #f0f0f0;
+  color: inherit;
+  border-radius: 6px;
+}
+.map-section { margin-bottom: 32px; }
+.photos { margin-top: 28px; }
+.map-section img { margin-top: 20px !important; }

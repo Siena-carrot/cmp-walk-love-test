@@ -71,6 +71,8 @@ body {
   margin-top: 50px;
   /* Page background color requested */
   background-color: #eadfca;
+  /* make default text color for the index page */
+  color: #494949;
 }
 
 .description-box {
@@ -82,7 +84,7 @@ body {
   max-width: 600px;
   font-size: 16px;
   border: none;
-  color: #222; /* ensure good contrast against the page background */
+  color: #494949; /* ensure good contrast against the page background */
   text-align: left; /* only the description text is left-aligned */
   /* Use explicit <br> for line breaks; allow normal wrapping otherwise */
   white-space: normal;
@@ -97,7 +99,7 @@ body {
   /* ① 角を極限まで丸く */
   border-radius: 9999px;
   /* ② 粗めの点線、③ 枠線を太く */
-  border: 3px dotted #333;
+  border: 3px dotted #494949;
   /* Fill: slightly translucent version of the page background */
   background: #f0ebe2;
   color: inherit;
