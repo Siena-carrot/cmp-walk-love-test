@@ -23,18 +23,39 @@ if (loggedIn !== "true") {
   }
 }
 
-// obje1はログインしていないと異常扱い
-if (loggedIn === "true") {
-  normalInfo.style.display = "block";
-  normalView.style.display = "block";
-} else {
-  errorInfo.style.display = "block";
-  errorView.style.display = "block";
+// obje1 display rules: normally only admins can see normal view, but
+// allow obje1 to appear normal if obje11 has been restored (cross-object rule),
+// or if obje1 itself has been restored/answered.
+try {
+  const selfFixed = localStorage.getItem('obje1Fixed') === 'restored' || localStorage.getItem('obje1Fixed') === '1';
+  const fixed11 = localStorage.getItem('obje11Fixed');
+  const crossFixed = (fixed11 === 'restored' || fixed11 === '1');
+  if (loggedIn === "true" || selfFixed || crossFixed || userAnswer) {
+    normalInfo.style.display = "block";
+    normalView.style.display = "block";
+  } else {
+    errorInfo.style.display = "block";
+    errorView.style.display = "block";
 
-  if (!isNaN(lockUntil) && now < lockUntil) {
-    puzzleBox.style.display = "none";
-    lockMessage.style.display = "block";
-    startLockCountdown(lockUntil);
+    if (!isNaN(lockUntil) && now < lockUntil) {
+      puzzleBox.style.display = "none";
+      lockMessage.style.display = "block";
+      startLockCountdown(lockUntil);
+    }
+  }
+} catch (e) {
+  // fallback to original behavior on error
+  if (loggedIn === "true") {
+    normalInfo.style.display = "block";
+    normalView.style.display = "block";
+  } else {
+    errorInfo.style.display = "block";
+    errorView.style.display = "block";
+    if (!isNaN(lockUntil) && now < lockUntil) {
+      puzzleBox.style.display = "none";
+      lockMessage.style.display = "block";
+      startLockCountdown(lockUntil);
+    }
   }
 }
 

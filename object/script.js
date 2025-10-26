@@ -395,6 +395,18 @@ function setThumbnailState(n) {
     // Debug logging to help trace unexpected cases
     console.debug(`setThumbnailState obje${n}: fixed=${fixed}, answer=${ans}, status=${st}, resolved=${state}`);
 
+    // Special rule: if obje11 has been restored, show obje1 as normal even when
+    // obje1 itself isn't marked restored. This allows cross-object recovery
+    // scenarios where fixing obje11 implies obje1 should appear restored.
+    try {
+      if (n === 1) {
+        const fixed11 = localStorage.getItem('obje11Fixed');
+        if ((fixed11 === 'restored' || fixed11 === '1') && state === 'error') {
+          state = 'normal';
+        }
+      }
+    } catch (e) { /* ignore localStorage errors */ }
+
     if (state === 'error' && errorSrc) img.src = errorSrc;
     else if (normalSrc) img.src = normalSrc;
 
