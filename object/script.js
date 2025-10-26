@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // set thumbnails for certain objects (normal / error) based on localStorage state
   // initial pass for configured objects
-  const thumbTargets = [2,3,5,7,8,9,11,13];
+  const thumbTargets = [1,2,3,5,7,8,9,11,13];
   thumbTargets.forEach(n => setThumbnailState(n));
 
   // badge/checkmark feature removed; we only set thumbnails
