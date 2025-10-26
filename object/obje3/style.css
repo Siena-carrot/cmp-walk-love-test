@@ -8,7 +8,7 @@
 
 body {
   font-family: 'SmartFontUI', system-ui, -apple-system, 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
-  background-color: #fdfdfd;
+  background-color: #eadfca;
   margin: 0;
   padding: 20px;
   text-align: center;
@@ -17,7 +17,7 @@ body {
 .object-container {
   max-width: 600px;
   margin: 0 auto;
-  background-color: #fff;
+  background-color: #cad8df;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);

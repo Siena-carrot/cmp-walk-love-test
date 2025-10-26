@@ -1,7 +1,7 @@
 /* Mail pages: use the original/system font stack (no local SmartFontUI) */
 body {
   font-family: system-ui, -apple-system, 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
-  background-color: #f4f4f4;
+  background-color: #e3f4fa;
   margin: 0;
   padding: 20px;
 }
@@ -14,7 +14,7 @@ h1 {
 .mail-list {
   max-width: 800px;
   margin: 0 auto;
-  background: #fff;
+  background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   padding: 20px;
@@ -38,7 +38,7 @@ h1 {
 
 .mail-item.read {
   color: #000; /* read = normal text color */
-  background-color: #fff; /* read = white background */
+  background-color: #ffffff; /* read = white background */
   font-weight: normal;
 }
 
