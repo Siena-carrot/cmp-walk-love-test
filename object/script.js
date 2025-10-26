@@ -112,10 +112,18 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const loginStatusEl = document.getElementById('loginStatus');
       if (loginStatusEl) {
-        loginStatusEl.innerHTML = '<span class="master-auth-prompt">マスターパスワード認証する</span>';
-        loginStatusEl.style.cursor = 'pointer';
-        // clicking this should immediately open the master login popup
-        loginStatusEl.onclick = openMasterPopup;
+        // Create a dedicated clickable span so the hit-area is limited to the
+        // visible control, not the entire #loginStatus container (which is
+        // styled as a block and would otherwise become fully clickable).
+        const span = document.createElement('span');
+        span.className = 'master-auth-prompt';
+        span.textContent = 'マスターパスワード認証する';
+        // make only the span show the pointer and handle clicks
+        span.style.cursor = 'pointer';
+        span.onclick = function (e) { e.stopPropagation(); openMasterPopup(); };
+        // clear any previous content and append the new span
+        loginStatusEl.innerHTML = '';
+        loginStatusEl.appendChild(span);
       }
     } catch (e) { console.warn('could not update loginStatus to show master auth needed', e); }
   }
@@ -287,7 +295,16 @@ function closeMasterHintPopup() {
 function submitLogin() {
   const input = document.getElementById("adminPassword").value.trim();
   if (input === "友よ我らぞ光よと") {
+    // mark admin as logged in
     localStorage.setItem("adminLoggedIn", "true");
+    // When an admin logs in, consider obje1 restored so its thumbnail/state
+    // becomes 'normal' and this persists across logout (stored in localStorage).
+    try {
+      localStorage.setItem('obje1Fixed', 'restored');
+    } catch (e) { console.warn('could not set obje1Fixed', e); }
+    // Attempt to immediately update the thumbnail UI for obje1 so the change
+    // is visible before reload (best-effort; page will reload right after).
+    try { setThumbnailState(1); } catch (e) { /* ignore */ }
     alert("ログインしました");
     location.reload();
   } else {

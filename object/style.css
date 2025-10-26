@@ -21,7 +21,7 @@ body {
   top: 12px;
   left: 20px;
   width: 180px; /* increased to 1.5x (was 120px) */
-  z-index: 1200;
+  z-index: 2000; /* raise above .top-bar so the logo remains clickable */
   display: block;
 }
 .site-logo img{width:100%;height:auto;display:block}

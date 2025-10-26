@@ -8,9 +8,11 @@
 </head>
 <body>
   <!-- site logo (click -> /index.html) placed top-left outside the main card area -->
+  <!-- use relative path; href will be corrected by JS if needed based on current path -->
   <a class="site-logo" href="../index.html" aria-label="サイトトップへ">
     <img src="../assets/images/logo.png" alt="CMP-walk 愛好会 ロゴ">
   </a>
+  
   <div class="top-bar">
     <span id="loginStatus"></span>
     <div id="mailButtonArea" style="display: none; margin-top: 8px; position:relative;">
@@ -165,7 +167,7 @@
   <!-- マスターログインポップ（指定オブジェがすべて復旧している場合に表示） -->
   <div id="masterLoginPopup" class="popup" style="display: none;">
     <div class="popup-content">
-      <p class="warning">複数の端末にて同時にWebページの編集が行われたため、一時的に編集をロックしました。ロックを解除するにはマスターパスワードの入力をしてください。</p>
+      <p class="warning">複数の端末にて同時にWebページの編集が行われたため、一時的に編集をロックしました。<br>ロックを解除するにはマスターパスワードを入力してください。</p>
   <input type="text" id="masterPassword" placeholder="マスターパスワードを入力">
   <p class="note">※パスワードは漢字とひらがなで入力してください</p>
   <span class="forgot-link" role="button" tabindex="0" onclick="openMasterHintPopup()" onkeydown="if(event.key==='Enter'||event.key===' ') { openMasterHintPopup(); event.preventDefault(); }">パスワードを忘れた場合はこちら</span>
