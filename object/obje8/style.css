@@ -184,3 +184,12 @@ h1 {
 .map-section { margin-bottom: 32px; }
 .photos { margin-top: 28px; }
 .map-section img { margin-top: 20px !important; }
+
+/* Ensure puzzle-box background is white (override older variants) */
+.puzzle-box { background-color: #fff; }
+
+/* Override: ensure the specific error-status message uses requested font and is 1.3x larger */
+.status.error {
+  font-family: 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
+  font-size: 1.3em;
+}

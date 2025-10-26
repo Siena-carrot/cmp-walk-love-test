@@ -41,6 +41,9 @@ h1 {
 
 .status.error {
   color: #c00;
+  /* Specific font and size for the error-status message */
+  font-family: 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
+  font-size: 1.3em;
 }
 
 .status.normal {
@@ -70,7 +73,7 @@ h1 {
 }
 
 .puzzle-box {
-  background-color: #fff8e1;
+  background-color: #fff;
   padding: 15px;
   border-radius: 6px;
   margin-top: 20px;
