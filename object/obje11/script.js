@@ -86,17 +86,48 @@ function attemptRepair(){
   if(!year||!dept){repairMessage.style.display='block';repairMessage.style.color='red';repairMessage.textContent='両方の欄を入力してください。';return}
   year=year.replace(/[０-９]/g,function(s){return String.fromCharCode(s.charCodeAt(0)-0xFEE0)});
   dept=dept.replace(/\s+/g,'');
-  const okYears=["1986"];const okDepts=["ばら","バラ","薔薇","薔"];
-  if(okYears.includes(year)&&okDepts.includes(dept)){
-    localStorage.setItem("obje11Fixed","restored");
-    const correctText = "説明文をここに入れてください。";
-    if (errorDescription) errorDescription.textContent = correctText;
-    // follow same success wording as obje8
-    alert("ページの復旧が確認できました");
-    location.reload();
-  } else {
+
+  const allowedHashes = [
+    'd44f9b24892eaefeb5e4deab5a41a5bc4bad7ddac2148608d4f4f144e5ec8519',
+    'f05e6c9cb519b4ac29c88ba57a1cc5ef8e8276feec00b804523146ea0efb096e',
+    '96a21f30cbe2ffa83a948379d2305ead364bbdceedde122de1a9ea5e1679f7cb',
+    '812e577ad8bc8d856bf7bee3851c06a492d5d5fbfcab0caecbad656732035663'
+  ];
+  const key = `${year}||${dept}`;
+  sha256Hex(key).then(h => {
+    if (allowedHashes.indexOf(h) !== -1) {
+      localStorage.setItem("obje11Fixed","restored");
+      const correctText = "説明文をここに入れてください。";
+      if (errorDescription) errorDescription.textContent = correctText;
+      alert("ページの復旧が確認できました");
+      location.reload();
+    } else {
+      repairMessage.style.display = 'block';
+      repairMessage.style.color = 'red';
+      repairMessage.textContent = 'エラー発生。もう一度確認してください。';
+    }
+  }).catch(e => {
+    console.error('hash error', e);
     repairMessage.style.display = 'block';
     repairMessage.style.color = 'red';
-    repairMessage.textContent = 'エラー発生。もう一度確認してください。';
+    repairMessage.textContent = 'エラーが発生しました。';
+  });
+}
+
+// Utility: compute SHA-256 hex digest of a UTF-8 string using Web Crypto
+function sha256Hex(str) {
+  try {
+    const enc = new TextEncoder();
+    const data = enc.encode(String(str || ''));
+    return window.crypto.subtle.digest('SHA-256', data).then(buf => {
+      const bytes = new Uint8Array(buf);
+      let hex = '';
+      for (let i = 0; i < bytes.length; i++) {
+        hex += ('00' + bytes[i].toString(16)).slice(-2);
+      }
+      return hex;
+    });
+  } catch (e) {
+    return Promise.reject(e);
   }
 }

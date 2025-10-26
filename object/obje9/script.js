@@ -12,6 +12,23 @@ const repairMessage = document.getElementById("repairMessage");
 
 const fixed = localStorage.getItem("obje9Fixed") === "restored";
 const container = document.querySelector('.object-container');
+// Utility: compute SHA-256 hex digest of a UTF-8 string using Web Crypto
+function sha256Hex(str) {
+  try {
+    const enc = new TextEncoder();
+    const data = enc.encode(String(str || ''));
+    return window.crypto.subtle.digest('SHA-256', data).then(buf => {
+      const bytes = new Uint8Array(buf);
+      let hex = '';
+      for (let i = 0; i < bytes.length; i++) {
+        hex += ('00' + bytes[i].toString(16)).slice(-2);
+      }
+      return hex;
+    });
+  } catch (e) {
+    return Promise.reject(e);
+  }
+}
 if (userAnswer || fixed) {
   normalInfo.style.display = "block";
   errorInfo.style.display = "none";
@@ -89,18 +106,26 @@ function attemptRepair(){
   if(!year||!dept){repairMessage.style.display='block';repairMessage.style.color='red';repairMessage.textContent='両方の欄を入力してください。';return}
   year=year.replace(/[０-９]/g,function(s){return String.fromCharCode(s.charCodeAt(0)-0xFEE0)});
   dept=dept.replace(/\s+/g,'');
-  const okYears=["60"];const okDepts=["原子核"];
-  if(okYears.includes(year)&&okDepts.includes(dept)){
-    localStorage.setItem("obje9Fixed","restored");
-    const correctText = "説明文をここに入れてください。";
-    if (errorDescription) errorDescription.textContent = correctText;
-    // follow the same success wording as obje8
-    alert("ページの復旧が確認できました");
-    location.reload();
-  } else {
+
+  const allowedHashes = ['0c469c6463266d6fec3f4f0b1e3b4b60bd3eb4db07079b6d52b564437af22135'];
+  const key = `${year}||${dept}`;
+  sha256Hex(key).then(h => {
+    if (allowedHashes.indexOf(h) !== -1) {
+      localStorage.setItem("obje9Fixed","restored");
+      const correctText = "説明文をここに入れてください。";
+      if (errorDescription) errorDescription.textContent = correctText;
+      alert("ページの復旧が確認できました");
+      location.reload();
+    } else {
+      repairMessage.style.display = 'block';
+      repairMessage.style.color = 'red';
+      repairMessage.textContent = 'エラー発生。もう一度確認してください。';
+    }
+  }).catch(e => {
+    console.error('hash error', e);
     repairMessage.style.display = 'block';
     repairMessage.style.color = 'red';
-    repairMessage.textContent = 'エラー発生。もう一度確認してください。';
-  }
+    repairMessage.textContent = 'エラーが発生しました。';
+  });
 
 }

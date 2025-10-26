@@ -11,6 +11,24 @@ const repairDept = document.getElementById("repairDept");
 const repairMessage = document.getElementById("repairMessage");
 const container = document.querySelector('.object-container');
 
+// Utility: compute SHA-256 hex digest of a UTF-8 string using Web Crypto
+function sha256Hex(str) {
+  try {
+    const enc = new TextEncoder();
+    const data = enc.encode(String(str || ''));
+    return window.crypto.subtle.digest('SHA-256', data).then(buf => {
+      const bytes = new Uint8Array(buf);
+      let hex = '';
+      for (let i = 0; i < bytes.length; i++) {
+        hex += ('00' + bytes[i].toString(16)).slice(-2);
+      }
+      return hex;
+    });
+  } catch (e) {
+    return Promise.reject(e);
+  }
+}
+
 // 表示ロジック: 回答済み or 修復済みなら正常表示、そうでなければ問題表示
 const fixed = localStorage.getItem("obje8Fixed") === "restored";
 if (userAnswer || fixed) {
@@ -112,21 +130,32 @@ function attemptRepair() {
   // 学部名の余分な空白を削除
   dept = dept.replace(/\s+/g, "");
 
-  const okYears = ["1964"];
-  const okDepts = ["理学", "阪大理学"];
+  // Precomputed SHA-256 hex digests for allowed answers (year||dept)
+  const allowedHashes = [
+    '215c260ed3f0b128937ecbdc46bc1e0ce2a1a04786e514c93966562b71e1ea7a',
+    '4afcc2ab5527fce98842425ddfb0567954119af8efbce40e808ccb53dc51a0d1'
+  ];
 
-  if (okYears.includes(year) && okDepts.includes(dept)) {
-    // 修復成功 — mark as restored
-    localStorage.setItem("obje8Fixed", "restored");
-    // 正しい説明文に置換
-    const correctText = "なんとなく素通りしてしまいがちだが、この碑はまさにマチカネワニが発掘された場所にある。発掘されたのは1964年、理学部の校舎建設現場。";
-    if (errorDescription) errorDescription.textContent = correctText;
-    // obje2 と同様の挙動: 成功メッセージを出してページをリロード
-    alert("ページの復旧が確認できました");
-    location.reload();
-  } else {
-    repairMessage.style.display = "block";
-    repairMessage.style.color = "red";
-    repairMessage.textContent = "エラー発生。もう一度確認してください。";
-  }
+  const key = `${year}||${dept}`;
+  // compare hashed input to allowed list
+  sha256Hex(key).then(h => {
+    if (allowedHashes.indexOf(h) !== -1) {
+      // 修復成功 — mark as restored
+      localStorage.setItem("obje8Fixed", "restored");
+      // 正しい説明文に置換
+      const correctText = "なんとなく素通りしてしまいがちだが、この碑はまさにマチカネワニが発掘された場所にある。発掘されたのは1964年、理学部の校舎建設現場。";
+      if (errorDescription) errorDescription.textContent = correctText;
+      alert("ページの復旧が確認できました");
+      location.reload();
+    } else {
+      repairMessage.style.display = "block";
+      repairMessage.style.color = "red";
+      repairMessage.textContent = "エラー発生。もう一度確認してください。";
+    }
+  }).catch(e => {
+    console.error('hash error', e);
+    repairMessage.style.display = 'block';
+    repairMessage.style.color = 'red';
+    repairMessage.textContent = 'エラーが発生しました。';
+  });
 }

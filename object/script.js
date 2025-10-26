@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // make the top-right control open the master login directly.
     try {
       const loginStatusEl = document.getElementById('loginStatus');
-      if (loginStatusEl) {
+    if (loginStatusEl) {
         // Create a dedicated clickable span so the hit-area is limited to the
         // visible control, not the entire #loginStatus container (which is
         // styled as a block and would otherwise become fully clickable).
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
         span.textContent = 'マスターパスワード認証する';
         // make only the span show the pointer and handle clicks
         span.style.cursor = 'pointer';
-        span.onclick = function (e) { e.stopPropagation(); openMasterPopup(); };
+  span.onclick = function (e) { e.stopPropagation(); openMasterPopup(); };
         // clear any previous content and append the new span
         loginStatusEl.innerHTML = '';
         loginStatusEl.appendChild(span);
@@ -293,10 +293,14 @@ function closeMasterHintPopup() {
 }
 
 function submitLogin() {
+  // Admin password is checked by comparing SHA-256(input) to the stored hash.
+  // Replace ADMIN_PASSWORD_HASH with the hex digest computed locally.
+  const ADMIN_PASSWORD_HASH = 'c174937d80c0c1b27d132769be2cf4259e9592c5cd9d579e74b16c3930ae4d41';
   const input = document.getElementById("adminPassword").value.trim();
-  if (input === "友よ我らぞ光よと") {
-    // mark admin as logged in
-    localStorage.setItem("adminLoggedIn", "true");
+  return sha256Hex(input).then(h => {
+    if (h === ADMIN_PASSWORD_HASH) {
+      // mark admin as logged in
+      localStorage.setItem("adminLoggedIn", "true");
     // When an admin logs in, consider obje1 restored so its thumbnail/state
     // becomes 'normal' and this persists across logout (stored in localStorage).
     try {
@@ -307,9 +311,10 @@ function submitLogin() {
     try { setThumbnailState(1); } catch (e) { /* ignore */ }
     alert("ログインしました");
     location.reload();
-  } else {
-    alert("パスワードが違います");
-  }
+    } else {
+      alert("パスワードが違います");
+    }
+  }).catch(e => { console.error('hash error', e); alert('エラーが発生しました'); });
   
 }
 
@@ -323,10 +328,14 @@ function closeMasterPopup() {
 }
 
 function submitMasterLogin() {
+  // Master password is checked by comparing SHA-256(input) to the stored hash.
+  // Replace MASTER_PASSWORD_HASH with the hex digest computed locally.
+  const MASTER_PASSWORD_HASH = 'dc68abf15032c196f220d604c41df682636fda7e7edc3a67e74831327b970ae1';
   const input = document.getElementById('masterPassword').value.trim();
-  // exact master password required
-  if (input === '青春の三春秋') {
-    localStorage.setItem('masterLoggedIn', 'true');
+  return sha256Hex(input).then(h => {
+    // exact master password required
+    if (h === MASTER_PASSWORD_HASH) {
+      localStorage.setItem('masterLoggedIn', 'true');
     // Prepare the admin-only mail (id=5) so that mailbox can display it after navigation
     try {
       // set date to current datetime (日本語形式 with time) so list/detail show auth time
@@ -351,9 +360,10 @@ function submitMasterLogin() {
     try { document.body.classList.remove('awaiting-master-auth'); } catch (e) {}
     closeMasterPopup();
     location.reload();
-  } else {
-    alert('マスターパスワードが違います');
-  }
+    } else {
+      alert('マスターパスワードが違います');
+    }
+  }).catch(e => { console.error('hash error', e); alert('エラーが発生しました'); });
 }
 
 // Note: do NOT remove the awaiting-master-auth class when the user cancels
@@ -395,18 +405,6 @@ function setThumbnailState(n) {
     // Debug logging to help trace unexpected cases
     console.debug(`setThumbnailState obje${n}: fixed=${fixed}, answer=${ans}, status=${st}, resolved=${state}`);
 
-    // Special rule: if obje11 has been restored, show obje1 as normal even when
-    // obje1 itself isn't marked restored. This allows cross-object recovery
-    // scenarios where fixing obje11 implies obje1 should appear restored.
-    try {
-      if (n === 1) {
-        const fixed11 = localStorage.getItem('obje11Fixed');
-        if ((fixed11 === 'restored' || fixed11 === '1') && state === 'error') {
-          state = 'normal';
-        }
-      }
-    } catch (e) { /* ignore localStorage errors */ }
-
     if (state === 'error' && errorSrc) img.src = errorSrc;
     else if (normalSrc) img.src = normalSrc;
 
@@ -432,6 +430,24 @@ function setThumbnailState(n) {
 // Badge/update checkmark feature removed — keep function as noop for compatibility
 function updateBadge(n) {
   // intentionally empty
+}
+
+// Utility: compute SHA-256 hex digest of a UTF-8 string using Web Crypto
+function sha256Hex(str) {
+  try {
+    const enc = new TextEncoder();
+    const data = enc.encode(String(str || ''));
+    return window.crypto.subtle.digest('SHA-256', data).then(buf => {
+      const bytes = new Uint8Array(buf);
+      let hex = '';
+      for (let i = 0; i < bytes.length; i++) {
+        hex += ('00' + bytes[i].toString(16)).slice(-2);
+      }
+      return hex;
+    });
+  } catch (e) {
+    return Promise.reject(e);
+  }
 }
 
 // All-restored popup controls — user sees this first, then presses とじる to
