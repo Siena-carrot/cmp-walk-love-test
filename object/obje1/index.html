@@ -14,7 +14,7 @@
       <h1>旧制浪速高等学校学生像「？？？？？？？？」</h1>
       <p class="description">阪大坂側から豊中キャンパスに来たときに最初に目に入るオブジェ。同じポーズで並んで写真を撮りたいが、立ち入っていいかわからない。</p>
       <div class="map-section">
-        <button onclick="showMap(this)">設置場所はこちら</button>
+        <button class="btn-map" onclick="showMap(this)">設置場所</button>
         <div id="mapImage" style="display: none;">
           <img src="../../assets/maps/obje1-map.jpg" alt="obje1-map" data-filename="obje1-map.jpg">
         </div>
@@ -28,7 +28,7 @@
       <h1>旧制浪速高等学校学生像「友よ我らぞ光よと」</h1>
       <p class="description">阪大坂側から豊中キャンパスに来たときに最初に目に入るオブジェ。同じポーズで並んで写真を撮りたいが、立ち入っていいかわからない。</p>
       <div class="map-section">
-  <button onclick="showMap(this)">設置場所はこちら</button>
+  <button class="btn-map" onclick="showMap(this)">設置場所</button>
         <div id="mapImage" style="display: none;">
           <img src="../../assets/maps/obje1-map.jpg" alt="obje1-map" data-filename="obje1-map.jpg">
         </div>
@@ -53,7 +53,7 @@
     </div>
 
     <div class="back-button">
-      <button onclick="location.href='../index.html'">オブジェ一覧に戻る</button>
+      <button class="btn-back" onclick="location.href='../index.html'">もどる</button>
     </div>
   </div>
 
@@ -81,16 +81,47 @@
       max-height: 80vh;
       overflow: auto;
     }
-    .map-modal-inner img { width: 100%; height: auto; display: block; margin-top: 10px; border-radius: 6px; }
+  .map-modal-inner img { width: 100%; height: auto; display: block; margin-top: 13px; border-radius: 6px; }
     .map-modal-close { display: inline-block; margin-left: auto; background: #ccc; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; }
     .map-modal-header { display:flex; align-items:center; gap:12px; }
+    /* Button customizations for obje1 page */
+    .btn-back, .btn-map {
+      /* ensure these two buttons use the local UI font */
+      font-family: 'SmartFontUI', system-ui, -apple-system, 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
+      font-size: 14px;
+      padding: 8px 14px;
+      cursor: pointer;
+      display: inline-block;
+      vertical-align: middle;
+      transition: background 160ms ease, transform 120ms ease;
+    }
+
+    /* Make both buttons 1.2x larger visually */
+  .btn-back, .btn-map { transform: scale(1.2); transform-origin: center; }
+
+    /* Back button: rounded and dotted border */
+    .btn-back {
+      border-radius: 9999px;
+      /* slightly thinner dotted border */
+      border: 2px dotted #333;
+      background: transparent;
+      color: inherit;
+    }
+
+    /* Map button: change text and make it borderless */
+    .btn-map {
+      border: none;
+      /* subtle light-gray fill */
+      background: #f0f0f0;
+      color: inherit;
+    }
   </style>
 
   <div id="mapModal" class="map-modal" aria-hidden="true">
     <div class="map-modal-inner" role="dialog" aria-modal="true">
       <div class="map-modal-header">
         <strong>設置場所</strong>
-        <button class="map-modal-close" onclick="closeMap()">閉じる</button>
+        <button class="map-modal-close" onclick="closeMap()">とじる</button>
       </div>
       <p id="mapModalDescription">(説明)</p>
       <img id="mapModalImg" src="" alt="設置場所の地図">

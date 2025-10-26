@@ -65,7 +65,8 @@ h1 {
 .map-section img {
   width: 100%;
   border-radius: 6px;
-  margin-top: 15px;
+  /* increase spacing between the "設置場所" button and the image by ~1.3x (15px -> 20px) */
+  margin-top:   115px;
 }
 
 .puzzle-box {
@@ -120,4 +121,15 @@ h1 {
   .object-container { padding: 12px; }
   h1 { font-size: 20px; }
   .description { font-size: 15px; }
+}
+
+/* Additional spacing overrides: ensure clear gap between map/button area and gallery photos */
+.map-section {
+  margin-bottom: 32px; /* ensure space under the map/button */
+}
+.photos {
+  margin-top: 28px; /* ensure photos sit further below the map/button */
+}
+.map-section img {
+  margin-top: 20px !important; /* normalize inline map image spacing */
 }
