@@ -27,7 +27,57 @@ body {
 .top-bar {
   text-align: right;
   padding: 10px 20px;
-  font-size: 14px;
+  /* make everything in the top-right slightly larger (1.2x of previous 14px) */
+  font-size: 16.8px; /* 14px * 1.2 */
+}
+
+/* scale mail icon and unread badge to match 1.2x size */
+.top-bar svg {
+  width: 48px; /* 40px * 1.2 */
+  height: 48px;
+}
+
+/* unread badge slightly larger to match scaled icon */
+#mailUnreadBadge {
+  width: 15px !important;
+  height: 15px !important;
+  top: -2px !important;
+  right: -2px !important;
+}
+
+/* style for logout button (match login button styling but set to grey) */
+#logoutButton {
+  display: inline-block;
+  padding: 6px 10px;
+  border: 2px solid #9a9a9a; /* grey border */
+  background: rgba(0,0,0,0.04); /* subtle grey background */
+  color: #555; /* grey text */
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 6px 8px 0 0;
+}
+#logoutButton:hover {
+  background: rgba(0,0,0,0.06);
+}
+
+/* Ensure the status and logout button stack vertically in the top-bar */
+.top-bar #loginStatus, .top-bar #logoutButton {
+  display: block;
+}
+
+/* add spacing between status/prompt and the buttons so they don't overlap */
+.top-bar #loginStatus {
+  margin-bottom: 6px;
+}
+.master-auth-prompt {
+  margin-bottom: 6px;
+  display: inline-block;
+}
+
+/* increase top margin on the login/logout buttons to separate from status text */
+#loginButton, #logoutButton {
+  margin-top: 6px;
 }
 
 .object-list-container {
@@ -98,19 +148,19 @@ h1 {
   background: rgba(232,70,93,0.14);
 }
 
-/* Style the top-right login button to match master-auth-prompt visuals */
+/* Style the top-right login button (grey) */
 #loginButton {
   display: inline-block; /* may be overridden by inline styles, but ensure styling applies */
   padding: 6px 10px;
-  border: 2px solid #E8465D;
-  background: rgba(232,70,93,0.08);
-  color: #E8465D;
+  border: 2px solid #9a9a9a; /* grey border */
+  background: rgba(0,0,0,0.04);
+  color: #555;
   font-weight: 700;
   border-radius: 6px;
   cursor: pointer;
 }
 #loginButton:hover {
-  background: rgba(232,70,93,0.14);
+  background: rgba(0,0,0,0.06);
 }
 
 .object-card:hover {
@@ -410,6 +460,6 @@ input[readonly] {
    tint the page background to a very light red to indicate elevated state. */
 body.awaiting-master-auth {
   /* subtle pale red overlay feel */
-  background-color: #d47e8b;
+  background-color: #f3314e;
   transition: background-color 220ms ease;
 }

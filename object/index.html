@@ -140,6 +140,17 @@
   </div>
 
   <!-- ログインポップ -->
+  <!-- 初期警告ポップ（ログインポップを開く前に表示） -->
+  <div id="preLoginWarningPopup" class="popup" style="display: none;">
+    <div class="popup-content">
+      <p class="warning">サイトに重大な問題が発生しています。<br>管理者としてログインし、<br>復旧作業を実施してください！</p>
+      <div style="margin-top: 10px; text-align:center;">
+        <button onclick="openLoginFromPre()">ログインする</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ログインポップ -->
   <div id="loginPopup" class="popup" style="display: none;">
     <div class="popup-content">
       <p class="warning">サイトに重大な問題が発生しています。<br>管理者としてログインし、<br>復旧作業を実施してください！</p>

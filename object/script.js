@@ -3,17 +3,80 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginStatus = document.getElementById("loginStatus");
   const loginButton = document.getElementById("loginButton");
   const mailButtonArea = document.getElementById("mailButtonArea");
+  // create or wire up logout button (will be inserted into .top-bar)
+  function ensureLogoutButton() {
+    let btn = document.getElementById('logoutButton');
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.id = 'logoutButton';
+      btn.type = 'button';
+      btn.textContent = 'ログアウトする';
+      btn.style.display = 'none';
+      btn.onclick = handleLogoutClick;
+      // insert after loginStatus and before mailButtonArea if possible
+      const topBar = loginStatus && loginStatus.parentNode;
+      if (topBar) {
+        // find mailButtonArea to insert before it
+        if (mailButtonArea && mailButtonArea.parentNode === topBar) {
+          topBar.insertBefore(btn, mailButtonArea);
+        } else {
+          topBar.appendChild(btn);
+        }
+      } else {
+        document.body.appendChild(btn);
+      }
+    }
+    return btn;
+  }
+
+  function handleLogoutClick() {
+    try {
+      const ok = confirm('ログアウトしますか？');
+      if (!ok) return;
+      // remove admin and master flags but keep other data (restored, mail read, etc.)
+      try { localStorage.removeItem('adminLoggedIn'); } catch (e) {}
+      try { localStorage.removeItem('masterLoggedIn'); } catch (e) {}
+      // update UI immediately
+      updateAuthUI();
+      alert('ログアウトしました');
+    } catch (e) { console.error('logout error', e); }
+  }
+
+  function updateAuthUI() {
+    const isAdmin = localStorage.getItem('adminLoggedIn') === 'true';
+    const isMaster = localStorage.getItem('masterLoggedIn') === 'true';
+    const logoutBtn = ensureLogoutButton();
+    if (isAdmin) {
+      loginStatus.textContent = '管理者として作業中';
+      logoutBtn.style.display = 'inline-block';
+      mailButtonArea.style.display = 'block';
+      loginButton.style.display = 'none';
+      // if master not logged but all restored, show master prompt (handled elsewhere)
+    } else {
+      // not admin
+      loginStatus.textContent = '';
+      logoutBtn.style.display = 'none';
+      mailButtonArea.style.display = 'none';
+      loginButton.style.display = 'inline-block';
+    }
+  }
 
   if (loggedIn === "true") {
+    // initial UI wiring for authenticated admin
+    ensureLogoutButton();
     loginStatus.textContent = "管理者として作業中";
     mailButtonArea.style.display = "block";
+    // show logout button when admin
+    try { document.getElementById('logoutButton').style.display = 'inline-block'; } catch (e) {}
   } else {
     loginStatus.textContent = "";
     loginButton.style.display = "inline-block";
   }
 
   if (!localStorage.getItem("objectPageVisited")) {
-    openLoginPopup();
+    // show a pre-login warning popup first; user then presses 'ログインする'
+    // to open the actual login popup.
+    openPreLoginPopup();
     localStorage.setItem("objectPageVisited", "true");
   }
 
@@ -179,6 +242,23 @@ function confirmNewMail() {
 
 function openLoginPopup() {
   document.getElementById("loginPopup").style.display = "flex";
+}
+
+// Pre-login warning popup controls
+function openPreLoginPopup() {
+  const el = document.getElementById('preLoginWarningPopup');
+  if (el) el.style.display = 'flex';
+}
+
+function closePreLoginPopup() {
+  const el = document.getElementById('preLoginWarningPopup');
+  if (el) el.style.display = 'none';
+}
+
+// Called by the 'ログインする' button inside the pre-login warning popup
+function openLoginFromPre() {
+  try { closePreLoginPopup(); } catch (e) {}
+  openLoginPopup();
 }
 
 function closeLoginPopup() {

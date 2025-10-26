@@ -31,14 +31,17 @@ html.splash-active .splash-overlay{
 .splash-inner{
   max-width:80%;
   text-align:center;
-  transform:translateY(12px) scale(0.985);
+  /* center robustly on small screens using left/translateX to avoid occasional flex centering bugs */
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px) scale(0.985);
   transition:transform 600ms cubic-bezier(.2,.9,.2,1), opacity 600ms ease;
   opacity:0;
   will-change:transform,opacity;
 }
 /* When splash-active is present, make inner visible immediately to avoid initial blank state */
 html.splash-active .splash-inner{
-  transform:translateY(0) scale(1) !important;
+  transform: translateX(-50%) translateY(0) scale(1) !important;
   opacity:1 !important;
 }
 .splash-overlay.visible{
@@ -46,7 +49,7 @@ html.splash-active .splash-inner{
   pointer-events:auto;
 }
 .splash-overlay.visible .splash-inner{
-  transform:translateY(0) scale(1);
+  transform: translateX(-50%) translateY(0) scale(1);
   opacity:1;
 }
 /* Hide all page children except the overlay while splash-active to prevent flicker */
@@ -124,4 +127,9 @@ body {
   }
 
   .splash-inner img{ width: 90vw; max-width: 540px }
+}
+
+/* Ensure the nav button remains centered on small screens even when body text-align is left */
+@media (max-width: 768px) {
+  .nav-button { display: block; margin: 18px auto; }
 }
