@@ -1,13 +1,6 @@
-@font-face {
-  font-family: 'SmartFontUI';
-  src: url('../assets/fonts/SmartFontUI.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
+/* Mail pages: use the original/system font stack (no local SmartFontUI) */
 body {
-  font-family: 'SmartFontUI', system-ui, -apple-system, 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
+  font-family: system-ui, -apple-system, 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
   background-color: #f4f4f4;
   margin: 0;
   padding: 20px;

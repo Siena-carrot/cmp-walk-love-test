@@ -229,7 +229,8 @@ h1 {
   font-display: swap;
 }
 .object-list-container > h1 {
-  font-family: 'LogoTypeGothicCondense', system-ui, -apple-system, 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
+  /* use the project's local UI font for the main objects list title */
+  font-family: 'SmartFontUI', system-ui, -apple-system, 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
   z-index: 1000;
 }
 
@@ -378,6 +379,30 @@ h1 {
   padding: 6px 12px;
   font-size: 14px;
   cursor: pointer;
+}
+
+/* Use system font stack for login/master popups and their hint popups so
+   these sensitive UIs appear in the default system typography. */
+#preLoginWarningPopup .popup-content,
+#loginPopup .popup-content,
+#masterLoginPopup .popup-content,
+#hintPopup .popup-content,
+#masterHintPopup .popup-content {
+  font-family: system-ui, -apple-system, 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
+}
+
+/* Ensure form controls inside popups inherit that font */
+#preLoginWarningPopup .popup-content input,
+#loginPopup .popup-content input,
+#masterLoginPopup .popup-content input,
+#hintPopup .popup-content input,
+#masterHintPopup .popup-content input,
+#preLoginWarningPopup .popup-content button,
+#loginPopup .popup-content button,
+#masterLoginPopup .popup-content button,
+#hintPopup .popup-content button,
+#masterHintPopup .popup-content button {
+  font-family: inherit;
 }
 
 input[readonly] {
