@@ -1,6 +1,6 @@
 @font-face{font-family:'SmartFontUI';src:url('../../assets/fonts/SmartFontUI.otf') format('opentype');font-weight:normal;font-style:normal;font-display:swap}
 
-body{font-family:'SmartFontUI',system-ui,-apple-system,'Hiragino Kaku Gothic ProN','メイリオ',sans-serif;background:#eadfca;margin:0;padding:20px;text-align:center}.object-container{max-width:600px;margin:0 auto;background:#cad8df;padding:20px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)}.photos{display:flex;gap:10px;justify-content:center;margin-bottom:20px}.photos img{width:45%;border-radius:4px}.back-button{margin-top:30px}
+body{font-family:'SmartFontUI',system-ui,-apple-system,'Hiragino Kaku Gothic ProN','メイリオ',sans-serif;background:#eadfca;margin:0;padding:20px;text-align:center}.object-container{max-width:600px;margin:0 auto;background:#f7ebc1;padding:20px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)}.photos{display:flex;gap:10px;justify-content:center;margin-bottom:20px}.photos img{width:45%;border-radius:4px}.back-button{margin-top:30px}
 #lockMessage {
 	color: red;
 	margin-bottom: 10px;
