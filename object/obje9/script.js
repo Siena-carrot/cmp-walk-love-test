@@ -1,4 +1,5 @@
 const userAnswer = localStorage.getItem("obje9Answer");
+const loggedIn = localStorage.getItem('adminLoggedIn');
 
 const errorInfo = document.getElementById("errorInfo");
 const normalInfo = document.getElementById("normalInfo");
@@ -22,6 +23,22 @@ if (userAnswer || fixed) {
   if (normalPhotos) normalPhotos.style.display = "none";
   if (errorPhotos) errorPhotos.style.display = "flex";
   if (container) container.classList.add('error');
+}
+
+// If not logged in, replace repair UI with a locked notice so repairs can't be attempted
+if (!loggedIn || loggedIn !== 'true') {
+  try {
+    const repairSection = document.querySelector('.repair-section');
+    if (repairSection && (!userAnswer && !fixed)) {
+      const notice = document.createElement('div');
+      notice.className = 'repair-locked';
+      notice.style.color = '#b00';
+      notice.style.fontWeight = '700';
+      notice.style.marginTop = '10px';
+      notice.innerHTML = '管理者としてログインすると復旧作業が行えます。<br><a href="../index.html">オブジェ一覧に戻る</a>';
+      repairSection.parentNode && repairSection.parentNode.replaceChild(notice, repairSection);
+    }
+  } catch (e) { console.warn('could not apply repair lock notice', e); }
 }
 
 function showMap(){const map=document.getElementById('mapImage');if(map)map.style.display='block';}
@@ -58,6 +75,15 @@ function showMap(button) {
 function closeMap(){ try { const modal=document.getElementById('mapModal'); if(modal){modal.style.display='none'; modal.setAttribute('aria-hidden','true');}} catch(e){console.warn('closeMap error',e);} }
 
 function attemptRepair(){
+  // require admin login
+  if (!loggedIn || loggedIn !== 'true') {
+    if (repairMessage) {
+      repairMessage.style.display = 'block';
+      repairMessage.style.color = 'red';
+      repairMessage.textContent = '管理者としてログインしてください。';
+    }
+    return;
+  }
   let year=repairYear.value&&repairYear.value.trim();
   let dept=repairDept.value&&repairDept.value.trim();
   if(!year||!dept){repairMessage.style.display='block';repairMessage.style.color='red';repairMessage.textContent='両方の欄を入力してください。';return}

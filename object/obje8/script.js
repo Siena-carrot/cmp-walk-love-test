@@ -29,6 +29,23 @@ if (userAnswer || fixed) {
   if (container) container.classList.add('error');
 }
 
+// If not logged in, disable repair UI and show a short notice/link
+if (!loggedIn || loggedIn !== 'true') {
+  try {
+    const repairSection = document.querySelector('.repair-section');
+    if (repairSection && (!userAnswer && !fixed)) {
+      // replace repair UI with a notice telling the user to login from the objects list
+      const notice = document.createElement('div');
+      notice.className = 'repair-locked';
+      notice.style.color = '#b00';
+      notice.style.fontWeight = '700';
+      notice.style.marginTop = '10px';
+      notice.innerHTML = '管理者としてログインすると復旧作業が行えます。<br><a href="../index.html">オブジェ一覧に戻る</a>';
+      repairSection.parentNode && repairSection.parentNode.replaceChild(notice, repairSection);
+    }
+  } catch (e) { console.warn('could not apply repair lock notice', e); }
+}
+
 // 誤答時のロックは不要なため、関連ロジックは含めていません
 
 function showMap() {
@@ -69,6 +86,15 @@ function closeMap(){ try { const modal=document.getElementById('mapModal'); if(m
 
 // 修復処理: 年と学部名の両方が一致すれば説明文を復元する
 function attemptRepair() {
+  // require admin login to perform repair
+  if (!loggedIn || loggedIn !== 'true') {
+    if (repairMessage) {
+      repairMessage.style.display = 'block';
+      repairMessage.style.color = 'red';
+      repairMessage.textContent = '管理者としてログインしてください。';
+    }
+    return;
+  }
   let year = repairYear.value && repairYear.value.trim();
   let dept = repairDept.value && repairDept.value.trim();
 
