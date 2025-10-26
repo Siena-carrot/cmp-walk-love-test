@@ -111,8 +111,10 @@ h1 {
 .object-card {
   width: 260px;
   background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  /* remove rounded corners per request */
+  border-radius: 0;
+  /* remove card shadow */
+  box-shadow: none;
   overflow: hidden;
   transition: transform 0.2s;
 }
@@ -120,17 +122,17 @@ h1 {
 /* Red border for objects currently in error state */
 .object-card.error {
   border: 2px solid #E8465D; /* bootstrap danger-like red */
-  box-shadow: 0 2px 8px rgba(232,70,93,0.12); /* original shadow */
-  /* stronger, more visible red glow */
-  box-shadow: 0 6px 20px rgba(217,83,79,0.22), 0 2px 6px rgba(217,83,79,0.12) inset;
-  transition: box-shadow 200ms ease, border-color 200ms ease;
+  /* keep red border but remove shadow/glow to match 'no shadow' design */
+  box-shadow: none !important;
+  transition: border-color 200ms ease;
 }
 
 /* Also style object page containers when in error state */
 .object-container.error {
   border: 2px solid #E8465D;
-  box-shadow: 0 6px 20px rgba(217,83,79,0.22), 0 2px 6px rgba(217,83,79,0.12) inset;
-  transition: box-shadow 200ms ease, border-color 200ms ease;
+  /* remove container shadow as well to match card style */
+  box-shadow: none !important;
+  transition: border-color 200ms ease;
 }
 
 /* Master auth prompt styling (appears in top-right loginStatus) */
@@ -181,9 +183,11 @@ h1 {
 
 .card-title {
   font-size: 18px;
-  font-weight: bold;
+  /* use normal weight for titles per request */
+  font-weight: normal;
   padding: 12px;
-  text-align: center;
+  /* left-align object names */
+  text-align: left;
   background-color: #f5f5f5;
 }
 
