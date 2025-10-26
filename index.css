@@ -1,5 +1,13 @@
 /* index.css — extracted from inline styles in index.html */
 
+/* Local font: SmartFontUI for the main page */
+@font-face {
+  font-family: 'SmartFontUI';
+  src: url('assets/fonts/SmartFontUI.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 /* Splash overlay shown only when arriving from outside the site */
 /* Use an opaque background so the underlying page is not visible while splash is active */
 .splash-overlay{
@@ -53,7 +61,8 @@ html.splash-active body > *:not(#splashOverlay){
 
 /* Page basic styles */
 body {
-  font-family: sans-serif;
+  /* Use local SmartFontUI with sensible fallbacks */
+  font-family: 'SmartFontUI', system-ui, -apple-system, 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
   text-align: center; /* overall layout center-aligned */
   margin-top: 50px;
   /* Page background color requested */

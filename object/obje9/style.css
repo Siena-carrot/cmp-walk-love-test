@@ -1,5 +1,13 @@
+@font-face {
+	font-family: 'SmartFontUI';
+	src: url('../../assets/fonts/SmartFontUI.otf') format('opentype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
 body {
-	font-family: sans-serif;
+	font-family: 'SmartFontUI', system-ui, -apple-system, 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
 	background-color: #fdfdfd;
 	margin: 0;
 	padding: 20px;

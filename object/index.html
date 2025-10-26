@@ -158,12 +158,22 @@
   <div id="masterLoginPopup" class="popup" style="display: none;">
     <div class="popup-content">
       <p class="warning">複数の端末にて同時にWebページの編集が行われたため、一時的に編集をロックしました。ロックを解除するにはマスターパスワードの入力をしてください。</p>
-      <input type="text" id="masterPassword" placeholder="マスターパスワードを入力">
-      <p class="note">※パスワードは漢字とひらがなで入力してください</p>
-      <button onclick="openMasterHintPopup()">マスターパスワードを忘れた場合はこちら</button>
+  <input type="text" id="masterPassword" placeholder="マスターパスワードを入力">
+  <p class="note">※パスワードは漢字とひらがなで入力してください</p>
+  <span class="forgot-link" role="button" tabindex="0" onclick="openMasterHintPopup()" onkeydown="if(event.key==='Enter'||event.key===' ') { openMasterHintPopup(); event.preventDefault(); }">パスワードを忘れた場合はこちら</span>
       <div style="margin-top: 10px;">
         <button onclick="submitMasterLogin()">認証</button>
         <button onclick="closeMasterPopup()">キャンセル</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 復旧完了ポップ：マスターログインの前に表示する確認ダイアログ -->
+  <div id="allRestoredPopup" class="popup" style="display: none;">
+    <div class="popup-content">
+      <p class="warning">すべての復旧が完了しました</p>
+      <div style="margin-top: 14px; text-align:center;">
+        <button onclick="closeAllRestoredPopup()">保存する</button>
       </div>
     </div>
   </div>
@@ -183,10 +193,15 @@
   <!-- マスターヒントポップ -->
   <div id="masterHintPopup" class="popup" style="display: none;">
     <div class="popup-content">
+      <button type="button" class="hint-popup-close" onclick="closeMasterHintPopup()" aria-label="閉じる">
+        <span class="square_btn" aria-hidden="true"></span>
+      </button>
       <p class="hint-title">パスワードのヒント</p>
       <p>Uの色から始まる６文字のフレーズ</p>
-      <img src="../assets/images/loginmap.jpg" alt="マスターヒント地図" style="width: 100%; border-radius: 6px; margin-top: 10px;">
-      <button onclick="closeMasterHintPopup()" style="margin-top: 10px;">閉じる</button>
+      <img src="../assets/maps/obje13-map.jpg" alt="マスターヒント地図" style="width: 100%; border-radius: 6px; margin-top: 10px;">
+      <div style="margin-top: 10px; text-align:center;">
+        <button onclick="closeMasterHintPopup()">閉じる</button>
+      </div>
     </div>
   </div>
 

@@ -1,5 +1,13 @@
+@font-face {
+  font-family: 'SmartFontUI';
+  src: url('../assets/fonts/SmartFontUI.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
-  font-family: sans-serif;
+  font-family: 'SmartFontUI', system-ui, -apple-system, 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
   background-color: #fdfdfd;
   margin: 0;
   padding: 20px;
@@ -157,10 +165,11 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 200000; /* ensure popups sit above site-logo and other page elements */
 }
 @font-face {
   font-family: 'LogoTypeGothicCondense';
-  src: url('../assets/fonts/ロゴたいぷゴシックCondense.otf') format('opentype');
+  src: url('../assets/fonts/LogoTypeGothicCondense.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -179,6 +188,7 @@ h1 {
   width: 300px;
   text-align: center;
   box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  z-index: 200001; /* keep content above overlay/backdrop */
 }
 
 .popup-content input {
@@ -198,6 +208,24 @@ h1 {
   color: #f3314e;
   font-weight: bold;
   margin-bottom: 15px;
+}
+
+/* Styling specifically for the "すべての復旧が完了しました" popup
+   Centers the message vertically/horizontally within the popup-content
+   and increases the warning text size to 1.2x. */
+#allRestoredPopup .popup-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* override default bottom padding to visually center content */
+  padding: 28px 20px;
+}
+
+#allRestoredPopup .warning{
+  font-size: 1.2em; /* 1.2x the inherited size */
+  text-align: center;
+  margin-bottom: 18px;
 }
 
 .note {
@@ -376,4 +404,12 @@ input[readonly] {
   .popup-content {
     padding: 12px;
   }
+}
+
+/* When awaiting master authentication after closing the all-restored popup,
+   tint the page background to a very light red to indicate elevated state. */
+body.awaiting-master-auth {
+  /* subtle pale red overlay feel */
+  background-color: #d47e8b;
+  transition: background-color 220ms ease;
 }

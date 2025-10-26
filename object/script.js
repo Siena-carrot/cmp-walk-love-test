@@ -32,15 +32,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const allRestored = masterTargets.every(n => isObjectRestored(n));
   if (allRestored && masterLogged !== 'true') {
-    // show master login popup and prevent browsing until master login
-    openMasterPopup();
-    // Highlight master auth needed in the top-right login status area
+    // Show the intermediate "all restored" popup automatically only once
+    // (first time the site detects all targets restored). Subsequent attempts
+    // (e.g. clicking the top-right prompt) should directly open the master
+    // login popup.
+    try {
+      const notified = localStorage.getItem('allRestoredNotified');
+      if (!notified) {
+        openAllRestoredPopup();
+        try { localStorage.setItem('allRestoredNotified', 'true'); } catch (e) {}
+      }
+    } catch (e) { console.warn('could not read/write allRestoredNotified', e); }
+
+    // Highlight master auth needed in the top-right login status area and
+    // make the top-right control open the master login directly.
     try {
       const loginStatusEl = document.getElementById('loginStatus');
       if (loginStatusEl) {
         loginStatusEl.innerHTML = '<span class="master-auth-prompt">マスターパスワード認証する</span>';
-        // make it clickable to re-open the master login popup
         loginStatusEl.style.cursor = 'pointer';
+        // clicking this should immediately open the master login popup
         loginStatusEl.onclick = openMasterPopup;
       }
     } catch (e) { console.warn('could not update loginStatus to show master auth needed', e); }
@@ -239,12 +250,17 @@ function submitMasterLogin() {
       localStorage.setItem('showNewMailPopup', 'true');
     } catch (e) { console.warn('could not prepare selectedMail', e); }
     alert('マスターログインに成功しました');
+    // remove the awaiting background before reload (reload would clear it anyway)
+    try { document.body.classList.remove('awaiting-master-auth'); } catch (e) {}
     closeMasterPopup();
     location.reload();
   } else {
     alert('マスターパスワードが違います');
   }
 }
+
+// Note: do NOT remove the awaiting-master-auth class when the user cancels
+// the master popup; keep the page tinted until master authentication occurs.
 
 // Set the card thumbnail for object n. Uses data-normal / data-error attributes on the img.
 function setThumbnailState(n) {
@@ -307,4 +323,23 @@ function setThumbnailState(n) {
 // Badge/update checkmark feature removed — keep function as noop for compatibility
 function updateBadge(n) {
   // intentionally empty
+}
+
+// All-restored popup controls — user sees this first, then presses とじる to
+// proceed to the master login popup.
+function openAllRestoredPopup() {
+  const el = document.getElementById('allRestoredPopup');
+  if (el) el.style.display = 'flex';
+}
+
+function closeAllRestoredPopup() {
+  const el = document.getElementById('allRestoredPopup');
+  if (el) el.style.display = 'none';
+  // After closing the notification, open the master login popup
+  try {
+    // apply a page-level class so the background becomes a faint red until
+    // master authentication completes (or is cancelled)
+    try { document.body.classList.add('awaiting-master-auth'); } catch (e) {}
+    openMasterPopup();
+  } catch (e) { console.warn('could not open master popup after closing allRestored', e); }
 }
