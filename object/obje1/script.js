@@ -11,42 +11,30 @@ const normalView = document.getElementById("normalView");
 const puzzleBox = document.getElementById("puzzleBox");
 const lockMessage = document.getElementById("lockMessage");
 
-// Title handling: will set to short/full later depending on whether the
-// page is shown in normal state. (Handled after display logic below.)
-
-// obje1 display rules: normally only admins can see normal view, but
-// allow obje1 to appear normal if obje11 has been restored (cross-object rule),
-// or if obje1 itself has been restored/answered.
-try {
-  const selfFixed = localStorage.getItem('obje1Fixed') === 'restored' || localStorage.getItem('obje1Fixed') === '1';
-  const fixed11 = localStorage.getItem('obje11Fixed');
-  const crossFixed = (fixed11 === 'restored' || fixed11 === '1');
-  if (loggedIn === "true" || selfFixed || crossFixed || userAnswer) {
-    normalInfo.style.display = "block";
-    normalView.style.display = "block";
-  } else {
-    errorInfo.style.display = "block";
-    errorView.style.display = "block";
-
-    if (!isNaN(lockUntil) && now < lockUntil) {
-      puzzleBox.style.display = "none";
-      lockMessage.style.display = "block";
-      startLockCountdown(lockUntil);
-    }
+// 非管理者の場合、表示される h1 タイトルを短縮する
+if (loggedIn !== "true") {
+  try {
+    const errH = errorInfo && errorInfo.querySelector('h1');
+    const normH = normalInfo && normalInfo.querySelector('h1');
+    if (errH) errH.textContent = '旧制浪速高等学校学生像';
+    if (normH) normH.textContent = '旧制浪速高等学校学生像';
+  } catch (e) {
+    console.error('title shorten error', e);
   }
-} catch (e) {
-  // fallback to original behavior on error
-  if (loggedIn === "true") {
-    normalInfo.style.display = "block";
-    normalView.style.display = "block";
-  } else {
-    errorInfo.style.display = "block";
-    errorView.style.display = "block";
-    if (!isNaN(lockUntil) && now < lockUntil) {
-      puzzleBox.style.display = "none";
-      lockMessage.style.display = "block";
-      startLockCountdown(lockUntil);
-    }
+}
+
+// obje1はログインしていないと異常扱い
+if (loggedIn === "true") {
+  normalInfo.style.display = "block";
+  normalView.style.display = "block";
+} else {
+  errorInfo.style.display = "block";
+  errorView.style.display = "block";
+
+  if (!isNaN(lockUntil) && now < lockUntil) {
+    puzzleBox.style.display = "none";
+    lockMessage.style.display = "block";
+    startLockCountdown(lockUntil);
   }
 }
 
@@ -156,27 +144,4 @@ function closeMap() {
       modal.setAttribute('aria-hidden', 'true');
     }
   } catch (e) { console.warn('closeMap error', e); }
-}
-
-// After determining which view is shown, set the h1 title appropriately:
-// - If normal view is shown (admin, or self-fixed, or cross-fixed, or answered)
-//   display the full title.
-// - Otherwise display the shortened title for non-admin/error view.
-try {
-  const fullTitle = '旧制浪速高等学校学生像「友よ我らぞ光よと」';
-  const shortTitle = '旧制浪速高等学校学生像';
-  const errH = errorInfo && errorInfo.querySelector('h1');
-  const normH = normalInfo && normalInfo.querySelector('h1');
-  const selfFixed = localStorage.getItem('obje1Fixed') === 'restored' || localStorage.getItem('obje1Fixed') === '1';
-  const fixed11 = localStorage.getItem('obje11Fixed');
-  const crossFixed = (fixed11 === 'restored' || fixed11 === '1');
-  if (loggedIn === "true" || selfFixed || crossFixed || userAnswer) {
-    if (errH) errH.textContent = fullTitle;
-    if (normH) normH.textContent = fullTitle;
-  } else {
-    if (errH) errH.textContent = shortTitle;
-    if (normH) normH.textContent = shortTitle;
-  }
-} catch (e) {
-  console.warn('could not set titles', e);
 }

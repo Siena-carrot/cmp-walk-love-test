@@ -62,14 +62,14 @@ function startLockCountdown(until) {
 
     if (remainingMs <= 0) {
       clearInterval(timer);
-      lockMessage.textContent = "ロックが解除されました。再挑戦できます。";
+      lockMessage.textContent = "ロックが解除されました。再度検証してください。";
       puzzleBox.style.display = "block";
       return;
     }
 
     const minutes = Math.floor(remainingMs / 60000);
     const seconds = Math.floor((remainingMs % 60000) / 1000);
-    lockMessage.textContent = `誤答のためロック中です。あと ${minutes}分 ${seconds}秒 後に再挑戦できます。`;
+    lockMessage.textContent = `ロック中。あと ${minutes}分 ${seconds}秒 お待ちください。`;
   }
 
   updateCountdown();
