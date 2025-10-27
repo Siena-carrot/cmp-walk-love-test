@@ -169,6 +169,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const thumbTargets = [1,2,3,5,7,8,9,11,13];
   thumbTargets.forEach(n => setThumbnailState(n));
 
+  // Prevent non-admin users from opening object pages that are currently in error.
+  // If a card's object is not considered restored, block the link and prompt login.
+  try {
+    document.querySelectorAll('.object-card a').forEach(a => {
+      const card = a.closest('.object-card');
+      if (!card || !card.id) return;
+      const m = card.id.match(/^card-obje(\d+)$/);
+      if (!m) return;
+      const n = parseInt(m[1], 10);
+      a.addEventListener('click', function(e) {
+        try {
+          const isRest = isObjectRestored(n);
+          const isAdmin = localStorage.getItem('adminLoggedIn') === 'true';
+          if (!isRest && !isAdmin) {
+            e.preventDefault();
+            // give the user a clear prompt and open the pre-login popup so they can log in
+            try { openPreLoginPopup(); } catch (ex) { /* fall back to alert */ }
+            alert('このオブジェクトの詳細ページは現在閲覧できません');
+          }
+        } catch (err) { console.error('card click guard error', err); }
+      });
+    });
+  } catch (e) { console.error('could not attach card click guards', e); }
+
   // badge/checkmark feature removed; we only set thumbnails
 
   // listen for storage changes from other tabs/windows and update thumbnails/badges live

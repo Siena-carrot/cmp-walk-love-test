@@ -282,7 +282,7 @@ h1 {
 }
 
 .warning {
-  color: #f3314e;
+  color: #e4425a;
   font-weight: bold;
   margin-bottom: 15px;
 }
@@ -303,6 +303,7 @@ h1 {
   font-size: 1.2em; /* 1.2x the inherited size */
   text-align: center;
   margin-bottom: 18px;
+  font-family: system-ui, -apple-system, 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
 }
 
 .note {
@@ -427,6 +428,11 @@ h1 {
   font-family: inherit;
 }
 
+/* Make the new-mail popup's warning text use the system UI font stack */
+#newMailPopup .warning {
+  font-family: system-ui, -apple-system, 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
+}
+
 input[readonly] {
   background-color: #f0f0f0;
   color: #333;
@@ -513,7 +519,7 @@ input[readonly] {
    tint the page background to a very light red to indicate elevated state. */
 body.awaiting-master-auth {
   /* subtle pale red overlay feel */
-  background-color: #f3314e;
+  background-color: #e4425a;
   transition: background-color 220ms ease;
 }
 

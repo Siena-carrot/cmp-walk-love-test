@@ -81,8 +81,8 @@
       max-height: 80vh;
       overflow: auto;
     }
-  .map-modal-inner img { width: 100%; height: auto; display: block; margin-top: 13px; border-radius: 6px; }
-    .map-modal-close { display: inline-block; margin-left: auto; background: #ccc; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; }
+  .map-modal-inner img { width: 100%; height: auto; display: block; margin-top: 20px; margin-bottom: 12px; border-radius: 6px; }
+    .map-modal-close { display: inline-block; margin-left: auto; margin-top: 12px; background: #ddd; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; }
     .map-modal-header { display:flex; align-items:center; gap:12px; }
     /* Button customizations for obje1 page */
     .btn-back, .btn-map {
@@ -121,12 +121,9 @@
 
   <div id="mapModal" class="map-modal" aria-hidden="true">
     <div class="map-modal-inner" role="dialog" aria-modal="true">
-      <div class="map-modal-header">
-        <strong>設置場所</strong>
-        <button class="map-modal-close" onclick="closeMap()">とじる</button>
-      </div>
       <p id="mapModalDescription">(説明)</p>
       <img id="mapModalImg" src="" alt="設置場所の地図">
+      <button class="map-modal-close" onclick="closeMap()">とじる</button>
     </div>
   </div>
 </body>
