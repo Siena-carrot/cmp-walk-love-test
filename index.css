@@ -29,7 +29,7 @@ html.splash-active .splash-overlay{
   pointer-events:auto !important;
 }
 .splash-inner{
-  max-width:80%;
+  max-width:100%;
   text-align:center;
   /* use fixed positioning so centering is robust across mobile browsers */
   position: fixed;
