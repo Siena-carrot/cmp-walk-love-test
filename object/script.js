@@ -333,9 +333,11 @@ function submitLogin() {
     // Attempt to immediately update the thumbnail UI for obje1 so the change
     // is visible before reload (best-effort; page will reload right after).
     try { setThumbnailState(1); } catch (e) { /* ignore */ }
+    fetch('https://rd.maltonn.com/log?c=cmpwalk&action=adminlogin').then(()=>{}).catch(()=>{});
     alert("ログインしました");
     location.reload();
     } else {
+      fetch('https://rd.maltonn.com/log?c=cmpwalk&action=passwordwrong').then(()=>{}).catch(()=>{});
       alert("パスワードが違います");
     }
   }).catch(e => { console.error('hash error', e); alert('エラーが発生しました'); });
@@ -344,6 +346,7 @@ function submitLogin() {
 
 // Master popup controls
 function openMasterPopup() {
+  fetch('https://rd.maltonn.com/log?c=cmpwalk&action=clearAll').then(()=>{}).catch(()=>{});
   document.getElementById('masterLoginPopup').style.display = 'flex';
 }
 
@@ -357,6 +360,7 @@ function submitMasterLogin() {
   const MASTER_PASSWORD_HASH = 'dc68abf15032c196f220d604c41df682636fda7e7edc3a67e74831327b970ae1';
   const input = document.getElementById('masterPassword').value.trim();
   return sha256Hex(input).then(h => {
+    fetch('https://rd.maltonn.com/log?c=cmpwalk&action=masterlogin').then(()=>{}).catch(()=>{});
     // exact master password required
     if (h === MASTER_PASSWORD_HASH) {
       localStorage.setItem('masterLoggedIn', 'true');
