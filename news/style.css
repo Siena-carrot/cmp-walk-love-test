@@ -1,0 +1,95 @@
+/* News page styles — clean news-specific naming, uses SmartFontUI */
+@font-face {
+  font-family: 'SmartFontUI';
+  src: url('../assets/fonts/SmartFontUI.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: 'SmartFontUI', system-ui, -apple-system, 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
+  background-color: #eadfca;
+  color: #494949;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.news-list {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #f6efe4;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+}
+
+.news-item {
+  border-bottom: 1px solid #f6efe4;
+  padding: 12px 0;
+  cursor: pointer;
+}
+
+.news-item:last-child { border-bottom: none; }
+
+.news-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.news-subject { flex: 1 1 auto; }
+.news-date { color: #494949; white-space: nowrap; }
+.news-preview { font-size: 13px; color: #494949; }
+
+#newsPopup {
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border: 2px solid #333;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  z-index: 1000;
+  width: 400px;
+  display: none;
+}
+
+#newsPopup h3 { margin-top: 0; }
+#newsPopup p { font-size: 14px; margin-top: 10px; }
+#newsPopup button { margin-top: 15px; padding: 6px 12px; }
+
+.news-popup-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Ensure nav-button links on news page never show an underline */
+.nav-button, .nav-button:visited, .nav-button:hover, .nav-button:focus {
+  text-decoration: none;
+}
+
+.nav-button {
+  margin-top: 40px;
+  padding: 10px 22px;
+  font-size: 16px;
+  display: inline-block;
+  border-radius: 9999px;
+  border: 3px dotted #494949;
+  background: #f6efe4;
+  color: inherit;
+}

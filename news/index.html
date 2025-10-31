@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>ニュース｜CMP-walk</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		/* Use SmartFontUI for the news page as requested (font file located in project assets) */
+		@font-face {
+			font-family: 'SmartFontUI';
+			src: url('../assets/fonts/SmartFontUI.otf') format('opentype');
+			font-weight: normal;
+			font-style: normal;
+			font-display: swap;
+		}
+		html, body { font-family: 'SmartFontUI', system-ui, -apple-system, 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif; }
+	</style>
+</head>
+<body>
+	<h1>ニュース</h1>
+
+	<div class="news-list" id="newsList">
+		<!-- ニュース一覧はJSで生成 -->
+	</div>
+
+	<div id="newsPopup">
+		<button class="news-popup-close" onclick="closePopup()" aria-label="閉じる">×</button>
+		<h3 id="popupSubject"></h3>
+		<p><span id="popupDate"></span></p>
+		<p id="popupBody"></p>
+		<button onclick="closePopup()">閉じる</button>
+	</div>
+
+	<div style="text-align: center; margin-top: 40px;">
+		<a class="nav-button" href="../index.html">トップへもどる</a>
+	</div>
+
+	<script src="script.js"></script>
+</body>
+</html>

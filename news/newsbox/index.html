@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ニュース詳細｜CMP-walk</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+  .mail-detail { max-width: 800px; margin: 24px auto; background: #f6efe4; padding: 20px; border-radius: 8px; position: relative; }
+    .mail-detail h2 { margin-top: 0; }
+    .meta { color: #666; font-size: 14px; margin-bottom: 12px; }
+    .body { white-space: pre-wrap; font-size: 15px; color: #494949; }
+    .back { display: block; margin-top: 18px; }
+    .detail-back-btn {
+      position: absolute;
+      left: -8px;
+      top: -32px;
+      text-decoration: none;
+      color: #628bbd;
+      font-weight: 700;
+      background: transparent;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 18px;
+      line-height: 1;
+      box-shadow: none;
+      border: none;
+      z-index: 5;
+    }
+    .detail-back-btn:active, .detail-back-btn:focus { outline: 2px solid rgba(3,102,214,0.2); }
+  </style>
+</head>
+<body>
+  <div class="mail-detail" id="mailDetail">
+    <a class="detail-back-btn" href="../index.html" aria-label="ニュース一覧へ戻る">もどる</a>
+    <h2 id="detailSubject">(件名)</h2>
+    <div class="meta">
+      <div><span id="detailDate"></span></div>
+    </div>
+    <div class="body" id="detailBody">(本文)</div>
+  </div>
+
+  <script>
+    let mail = null;
+    try {
+      const raw = localStorage.getItem('selectedNews');
+      if (raw) mail = JSON.parse(raw);
+    } catch (e) { console.warn('failed to parse selectedNews', e); }
+
+    if (!mail) {
+      mail = {
+        subject: '（選択されたニュースがありません）',
+        date: '',
+        body: 'ニュース一覧から項目を選択してください。'
+      };
+    }
+
+  document.getElementById('detailSubject').textContent = mail.subject || '';
+    function parseDateString(s) {
+      if (!s) return null;
+      const jp = s.match(/(\d{4})年\s*(\d{1,2})月\s*(\d{1,2})日(?:\s*(\d{1,2}):(\d{2}))?/);
+      if (jp) {
+        const y = Number(jp[1]), m = Number(jp[2]) - 1, d = Number(jp[3]);
+        const hh = jp[4] ? Number(jp[4]) : 0;
+        const mm = jp[5] ? Number(jp[5]) : 0;
+        return { date: new Date(y, m, d, hh, mm), hasTime: !!jp[4] };
+      }
+      const iso = new Date(s);
+      if (!isNaN(iso)) return { date: iso, hasTime: /T|:\d{2}/.test(s) };
+      return null;
+    }
+
+    function formatDetailDate(s) {
+      const p = parseDateString(s);
+      if (!p) return s || '';
+      const d = p.date;
+      const hh = String(d.getHours()).padStart(2, '0');
+      const mm = String(d.getMinutes()).padStart(2, '0');
+      if (p.hasTime) return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日 ${hh}:${mm}`;
+      return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`;
+    }
+
+    document.getElementById('detailDate').textContent = formatDetailDate(mail.date || '');
+    document.getElementById('detailBody').textContent = mail.body || '';
+
+    // News does not persist per-item read flags.
+  </script>
+</body>
+</html>
